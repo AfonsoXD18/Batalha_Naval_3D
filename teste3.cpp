@@ -16,41 +16,40 @@ vector<vector<vector<int>>> tabuleiro(SIZE, vector<vector<int>>(SIZE, vector<int
 void colocarNAVE(int x, int y, int z, int nave, int orientacao){ //Garantir que a nave cabe
     if (x<0 || x>=SIZE || y<0 || y>=SIZE || z<0 || z>=SIZE){
         switch (orientacao){
-        case 0: // Horizontal direito --->
-            for (int i  = 0; i < nave; i++){
-                tabuleiro[x+i][y][z] = 1;
-            }
-        break;
-        case 1: // Horizontal esquerdo --->
-            for (int i  = 0; i < nave; i++){
-                tabuleiro[x-i][y][z] = 1;
-            }
-        break;
-        case 2: // vertical cima --->
-            for (int i  = 0; i < nave; i++){
-                tabuleiro[x][y+i][z] = 1;
-            }
-        break;
-        case 3: // vertical baixo --->
-            for (int i  = 0; i < nave; i++){
-                tabuleiro[x][y-i][z] = 1;
-            }
-        break;
-        case 4: // Profundidade lá --->
-            for (int i  = 0; i < nave; i++){
-                tabuleiro[x][y][z+i] = 1;
-            }
-        break;
-        case 5: // Profundidade cá --->
-            for (int i  = 0; i < nave; i++){
-                tabuleiro[x][y][z-i] = 1;
-            }
-        break;
-        
-        default:
-            break;
+            case 0: // Horizontal direito --->
+                for (int i  = 0; i < nave; i++){
+                    tabuleiro[x+i][y][z] = 1;
+                }
+                break;
+            case 1: // Horizontal esquerdo --->
+                for (int i  = 0; i < nave; i++){
+                    tabuleiro[x-i][y][z] = 1;
+                }
+                break;
+            case 2: // vertical cima --->
+                for (int i  = 0; i < nave; i++){
+                    tabuleiro[x][y+i][z] = 1;
+                }
+                break;
+            case 3: // vertical baixo --->
+                for (int i  = 0; i < nave; i++){
+                    tabuleiro[x][y-i][z] = 1;
+                }
+                break;
+            case 4: // Profundidade lá --->
+                for (int i  = 0; i < nave; i++){
+                    tabuleiro[x][y][z+i] = 1;
+                }
+                break;
+            case 5: // Profundidade cá --->
+                for (int i  = 0; i < nave; i++){
+                    tabuleiro[x][y][z-i] = 1;
+                }
+                break;
+            default:
+                cout << "Orientacao invalida.\n";
+                break;
         }
-        tabuleiro[x][y][z] = 1;
     }
 
 
