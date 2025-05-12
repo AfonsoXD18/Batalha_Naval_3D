@@ -1,4 +1,6 @@
 // g++ -std=c++11 Batalha_Naval_3D/teste3.cpp -o teste3; ./teste3
+// g++ -std=c++11 teste3.cpp -o teste3; ./teste3
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,9 +13,10 @@ bool espacamentoObrigatorio = false;
 
 const int SIZE = 10;
 // Declaração do tabuleiro 3D
-vector<vector<vector<int>>> tabuleiro(SIZE, vector<vector<int>>(SIZE, vector<int>(SIZE, 0)));
+vector<vector<vector<int>>> tabuleiro1(SIZE, vector<vector<int>>(SIZE, vector<int>(SIZE, 0)));
+vector<vector<vector<int>>> tabuleiro2(SIZE, vector<vector<int>>(SIZE, vector<int>(SIZE, 0)));
 
-void colocarNAVE(int x, int y, int z, int nave, int orientacao){ //Garantir que a nave cabe
+void colocarNAVE(int x, int y, int z, int nave, int orientacao, vector<vector<vector<int>>> tabuleiro){ //Garantir que a nave cabe
     if (x<0 || x>=SIZE || y<0 || y>=SIZE || z<0 || z>=SIZE){
         switch (orientacao){
             case 0: // Horizontal direito --->
@@ -56,10 +59,43 @@ void colocarNAVE(int x, int y, int z, int nave, int orientacao){ //Garantir que 
 }
 // Funções placeholder
 void iniciarJogo() {
-    cout << "\n[Iniciar Jogo]\n";
-    // Aqui será implementada a lógica de preparação e execução do jogo
-    jogoEmCurso = true;
-    cout << "Inicio do jogo.\n";
+    cout << "Inserir nome do jogador1: ";
+    string jogador1;
+    cin >> jogador1;
+    cout << "Inserir nome do jogador2: ";
+    string jogador2;
+    cin >> jogador2;
+
+    // vars para guardar input
+    int x, y, z, nave, orientacao;
+
+    // Player 1
+    cout << "Player 1 --> coloca as tuas babes: \n";
+    for (int i = 0; i < 4; i++){
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        cout << "Insira o tamanho da nave: ";   // Alterar para a pessoa meter o nome da nave e vcs tem que associar a um tamanho
+        cin >> nave;
+        cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
+        cin >> orientacao;
+
+        colocarNAVE(x, y, z, nave, orientacao, tabuleiro1);
+        cout << "Nave colocada com sucesso!\n";
+    }
+
+    //Player 2
+    cout << "Player 2 --> coloca as tuas babes: \n";
+    for (int i = 0; i < 4; i++){
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        cout << "Insira o tamanho da nave: ";   // Alterar para a pessoa meter o nome da nave e vcs tem que associar a um tamanho
+        cin >> nave;
+        cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
+        cin >> orientacao;
+
+        colocarNAVE(x, y, z, nave, orientacao, tabuleiro1);
+        cout << "Nave colocada com sucesso!\n";
+    }
 }
 
 void configuracoes() {
@@ -97,7 +133,7 @@ bool confirmarSaida() {
 int main() {
     int opcao;
 
-    do {
+    while (true) {
         cout << "+----- MENU PRINCIPAL - BATALHA NAVAL 3D -----+\n";
         cout << "|   1. Iniciar jogo                           |\n";
         cout << "|   2. Configuracao                           |\n";
@@ -126,5 +162,5 @@ int main() {
             default:
                 cout << "Opção invalida. Tente novamente.\n";
         }
-    } while (true);
+    }
 }
