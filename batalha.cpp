@@ -92,3 +92,4 @@ int main() {
     // Aqui entra a lógica principal do jogo
     return 0;
 }
+// puta
