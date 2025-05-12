@@ -1,6 +1,7 @@
 // g++ -std=c++11 Batalha_Naval_3D/teste3.cpp -o teste3; ./teste3
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -8,6 +9,52 @@ using namespace std;
 bool jogoEmCurso = false;
 bool espacamentoObrigatorio = false;
 
+const int SIZE = 10;
+// Declaração do tabuleiro 3D
+vector<vector<vector<int>>> tabuleiro(SIZE, vector<vector<int>>(SIZE, vector<int>(SIZE, 0)));
+
+void colocarNAVE(int x, int y, int z, int nave, int orientacao){ //Garantir que a nave cabe
+    if (x<0 || x>=SIZE || y<0 || y>=SIZE || z<0 || z>=SIZE){
+        switch (orientacao){
+        case 0: // Horizontal direito --->
+            for (int i  = 0; i < nave; i++){
+                tabuleiro[x+i][y][z] = 1;
+            }
+        break;
+        case 1: // Horizontal esquerdo --->
+            for (int i  = 0; i < nave; i++){
+                tabuleiro[x-i][y][z] = 1;
+            }
+        break;
+        case 2: // vertical cima --->
+            for (int i  = 0; i < nave; i++){
+                tabuleiro[x][y+i][z] = 1;
+            }
+        break;
+        case 3: // vertical baixo --->
+            for (int i  = 0; i < nave; i++){
+                tabuleiro[x][y-i][z] = 1;
+            }
+        break;
+        case 4: // Profundidade lá --->
+            for (int i  = 0; i < nave; i++){
+                tabuleiro[x][y][z+i] = 1;
+            }
+        break;
+        case 5: // Profundidade cá --->
+            for (int i  = 0; i < nave; i++){
+                tabuleiro[x][y][z-i] = 1;
+            }
+        break;
+        
+        default:
+            break;
+        }
+        tabuleiro[x][y][z] = 1;
+    }
+
+
+}
 // Funções placeholder
 void iniciarJogo() {
     cout << "\n[Iniciar Jogo]\n";
