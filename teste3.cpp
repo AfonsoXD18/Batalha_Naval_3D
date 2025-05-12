@@ -1,3 +1,4 @@
+// g++ -std=c++11 Batalha_Naval_3D/teste3.cpp -o teste3; ./teste3
 #include <iostream>
 #include <string>
 
@@ -51,11 +52,12 @@ int main() {
     int opcao;
 
     do {
-        cout << "\n===== MENU PRINCIPAL - BATALHA NAVAL 3D =====\n";
-        cout << "1. Iniciar jogo\n";
-        cout << "2. Configuracao\n";
-        cout << "3. Mostrar historico\n";
-        cout << "4. Sair\n";
+        cout << "+----- MENU PRINCIPAL - BATALHA NAVAL 3D -----+\n";
+        cout << "|   1. Iniciar jogo                           |\n";
+        cout << "|   2. Configuracao                           |\n";
+        cout << "|   3. Mostrar historico                      |\n";
+        cout << "|   4. Sair                                   |\n";
+        cout << "+---------------------------------------------+\n";
         cout << "Escolha uma opcao: ";
         cin >> opcao;
 
