@@ -1,5 +1,5 @@
-// g++ -std=c++11 Batalha_Naval_3D/teste3.cpp -o teste3; ./teste3
-// g++ -std=c++11 teste3.cpp -o teste3; ./teste3
+// g++ -std=c++11 Batalha_Naval_3D/teste4.cpp -o teste4; ./teste4
+// g++ -std=c++11 teste4.cpp -o teste4; ./teste4
 
 #include <iostream>
 #include <string>
@@ -49,6 +49,21 @@ void colocarNAVE(int x, int y, int z, int nave, int orientacao, vector<vector<ve
                     tabuleiro[x][y][z-i] = 1;
                 }
                 break;
+            case 6: // Cubo
+                for (int i = 0; i < nave; i++){
+                    for (int j = 0; j < nave; j++){
+                        for (int k = 0; k < nave; k++){
+                            if( x+i < SIZE && y+j < SIZE && z+k < SIZE){
+                                tabuleiro [x+i][y+j][z+k]=1;
+                            }
+                            else{
+                                cout << "Parte do cubo está de fora do tabuleiro. /n";
+                                return;
+                            }
+                        }
+                    }
+                }
+                break;
             default:
                 cout << "Orientacao invalida.\n";
                 break;
@@ -70,30 +85,126 @@ void iniciarJogo() {
     int x, y, z, nave, orientacao;
 
     // Player 1
-    cout << "Player 1 --> coloca as tuas babes: \n";
+    cout << "Player 1 --> Coloca as tuas Naves: \n";
+    // Nave Caça
     for (int i = 0; i < 4; i++){
+        cout << "Nave: Caca \n";
+        nave=1;
         cout << "Insira a coordenadas (x y z): ";
         cin >> x >> y >> z;
-        cout << "Insira o tamanho da nave: ";   // Alterar para a pessoa meter o nome da nave e vcs tem que associar a um tamanho
-        cin >> nave;
         cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
         cin >> orientacao;
 
         colocarNAVE(x, y, z, nave, orientacao, tabuleiro1);
         cout << "Nave colocada com sucesso!\n";
     }
-
-    //Player 2
-    cout << "Player 2 --> coloca as tuas babes: \n";
-    for (int i = 0; i < 4; i++){
+    // Nave Fragata
+    for (int i = 0; i < 3; i++){
+        cout << "Nave: Fragata \n";
+        nave=2;
         cout << "Insira a coordenadas (x y z): ";
         cin >> x >> y >> z;
-        cout << "Insira o tamanho da nave: ";   // Alterar para a pessoa meter o nome da nave e vcs tem que associar a um tamanho
-        cin >> nave;
         cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
         cin >> orientacao;
 
         colocarNAVE(x, y, z, nave, orientacao, tabuleiro1);
+        cout << "Nave colocada com sucesso!\n";
+    }
+    // Nave Contratorpedeiro
+    for (int i = 0; i < 2; i++){
+        cout << "Nave: Contratorpedeiro \n";
+        nave=3;
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
+        cin >> orientacao;
+
+        colocarNAVE(x, y, z, nave, orientacao, tabuleiro1);
+        cout << "Nave colocada com sucesso!\n";
+    }
+    // Nave Cruzador
+    for (int i = 0; i < 1; i++){
+        cout << "Nave: Cruzador \n";
+        nave=4;
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
+        cin >> orientacao;
+
+        colocarNAVE(x, y, z, nave, orientacao, tabuleiro1);
+        cout << "Nave colocada com sucesso!\n";
+    }
+    // Nave Mãe
+    for(int i = 0; i<1; i++){
+        cout << "Nave: Nave-Mae /n";
+        nave=3;
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        orientacao=6;
+
+        colocarNAVE(x, y, y, nave, orientacao, tabuleiro1);
+        cout << "Nave colocada com sucesso!\n";
+    }
+    
+    //Player 2
+    cout << "Player 2 --> Coloca as tuas Naves: \n";
+    // Nave Caça
+    for (int i = 0; i < 4; i++){
+        cout << "Nave: Caca \n";
+        nave=1;
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
+        cin >> orientacao;
+
+        colocarNAVE(x, y, z, nave, orientacao, tabuleiro2);
+        cout << "Nave colocada com sucesso!\n";
+    }
+    // Nave Fragata
+    for (int i = 0; i < 3; i++){
+        cout << "Nave: Fragata \n";
+        nave=2;
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
+        cin >> orientacao;
+
+        colocarNAVE(x, y, z, nave, orientacao, tabuleiro2);
+        cout << "Nave colocada com sucesso!\n";
+    }
+    // Nave Contratorpedeiro
+    for (int i = 0; i < 2; i++){
+        cout << "Nave: Contratorpedeiro \n";
+        nave=3;
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
+        cin >> orientacao;
+
+        colocarNAVE(x, y, z, nave, orientacao, tabuleiro2);
+        cout << "Nave colocada com sucesso!\n";
+    }
+    // Nave Cruzador
+    for (int i = 0; i < 1; i++){
+        cout << "Nave: Cruzador \n";
+        nave=4;
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        cout << "Insira a orientacao (0: horizontal direita, 1: horizontal esquerda, 2: vertical cima, 3: vertical baixo, 4: profundidade la, 5: profundidade ca): ";
+        cin >> orientacao;
+
+        colocarNAVE(x, y, z, nave, orientacao, tabuleiro2);
+        cout << "Nave colocada com sucesso!\n";
+    }
+    // Nave Mãe
+    for(int i = 0; i<1; i++){
+        cout << "Nave: Nave-Mae /n";
+        nave=3;
+        cout << "Insira a coordenadas (x y z): ";
+        cin >> x >> y >> z;
+        orientacao=6;
+
+        colocarNAVE(x, y, y, nave, orientacao, tabuleiro2);
         cout << "Nave colocada com sucesso!\n";
     }
 }
@@ -164,4 +275,3 @@ int main() {
         }
     }
 }
-//puta
