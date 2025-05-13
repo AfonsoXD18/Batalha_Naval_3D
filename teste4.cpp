@@ -146,6 +146,7 @@ void iniciarJogo() {
         cout << "Nave colocada com sucesso!\n";
     }
     
+    mostrarTabuleiro(tabuleiro1);
     //Player 2
     cout << "Player 2 --> Coloca as tuas Naves: \n";
     // Nave Caça
@@ -207,8 +208,21 @@ void iniciarJogo() {
         colocarNAVE(x, y, y, nave, orientacao, tabuleiro2);
         cout << "Nave colocada com sucesso!\n";
     }
-}
 
+    mostrarTabuleiro(tabuleiro2);
+}
+ // Mostrar tabuleiro
+ void mostrarTabuleiro(const vector<vector<vector<int>>>& tabuleiro1, const vector<vector<vector<int>>>& tabuleiro2){
+    for (int z=0; z<SIZE; z++){
+        cout << "Camada Z = " << z << ":\n";
+        for (int y=0; y<SIZE; y++){
+            for (int x=0; x<SIZE; x++){
+                cout << tabuleiro1[x][y][z] << " ";
+            }
+            cout << "\n";
+        }
+    }
+ }
 void configuracoes() {
     cout << "\n[Configuracoes do Jogo]\n";
     cout << "Espaço obrigatório entre naves (atualmente "
