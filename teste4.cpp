@@ -1,11 +1,13 @@
 // g++ -std=c++11 Batalha_Naval_3D/teste4.cpp -o teste4; ./teste4
 // g++ -std=c++11 teste4.cpp -o teste4; ./teste4
+// g++ -O2 -std=c++17 teste4.cpp -o teste4; ./teste4 <entrada.txt ---> meu
 
 #include <iostream>
 #include <string>
 #include <vector>
 
 using namespace std;
+void mostrarTabuleiro(const vector<vector<vector<int>>>& tabuleiro);
 
 // Estado do jogo
 bool jogoEmCurso = false;
@@ -208,7 +210,6 @@ void iniciarJogo() {
     cout << "Nave colocada com sucesso!\n";
 
     mostrarTabuleiro(tabuleiro2);
-    cout << "PILOCA "
 }
  // Mostrar tabuleiro
  void mostrarTabuleiro(const vector<vector<vector<int>>>& tabuleiro){
