@@ -136,7 +136,7 @@ void iniciarJogo() {
     }
     // Nave Mãe
     for(int i = 0; i<1; i++){
-        cout << "Nave: Nave-Mae /n";
+        cout << "Nave: Nave-Mae \n";
         nave=3;
         cout << "Insira a coordenadas (x y z): ";
         cin >> x >> y >> z;
@@ -199,7 +199,7 @@ void iniciarJogo() {
     }
     // Nave Mãe
     for(int i = 0; i<1; i++){
-        cout << "Nave: Nave-Mae /n";
+        cout << "Nave: Nave-Mae \n";
         nave=3;
         cout << "Insira a coordenadas (x y z): ";
         cin >> x >> y >> z;
@@ -212,15 +212,16 @@ void iniciarJogo() {
     mostrarTabuleiro(tabuleiro2);
 }
  // Mostrar tabuleiro
- void mostrarTabuleiro(const vector<vector<vector<int>>>& tabuleiro1, const vector<vector<vector<int>>>& tabuleiro2){
+ void mostrarTabuleiro(const vector<vector<vector<int>>>& tabuleiro){
     for (int z=0; z<SIZE; z++){
         cout << "Camada Z = " << z << ":\n";
         for (int y=0; y<SIZE; y++){
             for (int x=0; x<SIZE; x++){
-                cout << tabuleiro1[x][y][z] << " ";
+                cout << tabuleiro[x][y][z] << " ";
             }
             cout << "\n";
         }
+        cout << "\n";
     }
  }
 void configuracoes() {
