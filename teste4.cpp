@@ -198,18 +198,17 @@ void iniciarJogo() {
         cout << "Nave colocada com sucesso!\n";
     }
     // Nave Mãe
-    for(int i = 0; i<1; i++){
-        cout << "Nave: Nave-Mae \n";
-        nave=3;
-        cout << "Insira a coordenadas (x y z): ";
-        cin >> x >> y >> z;
-        orientacao=6;
+    cout << "Nave: Nave-Mae \n";
+    nave=3;
+    cout << "Insira a coordenadas (x y z): ";
+    cin >> x >> y >> z;
+    orientacao=6;
 
-        colocarNAVE(x, y, y, nave, orientacao, tabuleiro2);
-        cout << "Nave colocada com sucesso!\n";
-    }
+    colocarNAVE(x, y, y, nave, orientacao, tabuleiro2);
+    cout << "Nave colocada com sucesso!\n";
 
     mostrarTabuleiro(tabuleiro2);
+    cout << "PILOCA "
 }
  // Mostrar tabuleiro
  void mostrarTabuleiro(const vector<vector<vector<int>>>& tabuleiro){
