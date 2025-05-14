@@ -1,6 +1,7 @@
 // g++ -std=c++11 Batalha_Naval_3D/teste4.cpp -o teste4; ./teste4
 // g++ -std=c++11 teste4.cpp -o teste4; ./teste4
 // g++ -O2 -std=c++17 teste4.cpp -o teste4; ./teste4 <entrada.txt ---> meu
+// g++ -std=c++11 teste4.cpp -o teste4 && teste4 < entrada.txt
 
 #include <iostream>
 #include <string>
@@ -211,7 +212,7 @@ void iniciarJogo() {
 
     mostrarTabuleiro(tabuleiro2);
 }
- // Mostrar tabuleiro
+ // Mostrar tabuleiro em XZ XY YZ e mostrar as naves de cada jogador individualmente
  void mostrarTabuleiro(const vector<vector<vector<int>>>& tabuleiro){
     for (int z=0; z<SIZE; z++){
         cout << "Camada Z = " << z << ":\n";
@@ -224,6 +225,19 @@ void iniciarJogo() {
         cout << "\n";
     }
  }
+
+ //Função do missil que destroi 1 coluna
+void dispararMissel(int x, int y, int z, vector<vector<vector<int>>>& tabuleiro) {
+    if (x < 0 || x >= SIZE || y < 0 || y >= SIZE || z < 0 || z >= SIZE) {
+        cout << "Coordenadas invalidas.\n";
+        return;
+    }
+    // Destruir a coluna
+    for (int i = 0; i < SIZE; i++) {
+        tabuleiro[x][y][i] = 0;
+    }
+    cout << "Missel disparado com sucesso!\n";
+
 void configuracoes() {
     cout << "\n[Configuracoes do Jogo]\n";
     cout << "Espaço obrigatório entre naves (atualmente "
