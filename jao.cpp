@@ -109,6 +109,5 @@ void gameUI(std::string jogador1 = "Jogador 1", std::vector<std::vector<std::vec
     std::cout << "║ ┗━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┛                                  ║\n";
 
     std::cout << "║                                                                            ║\n";
-    std::cout << "║                                                                            ║\n";
     std::cout << "╚════════════════════════════════════════════════════════════════════════════╝\n";
 }
