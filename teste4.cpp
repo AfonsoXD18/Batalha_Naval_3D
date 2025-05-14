@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream> // Para manipulação de arquivos
 
 using namespace std;
 void mostrarTabuleiro(const vector<vector<vector<int>>>& tabuleiro);
@@ -251,10 +252,59 @@ void configuracoes() {
     }
 }
 
+
+void guardarHistorico(const string& jogador1, const string& jogador2, 
+                      const vector<vector<vector<int>>>& tabuleiro1, 
+                      const vector<vector<vector<int>>>& tabuleiro2) {
+    ofstream arquivo("historico.txt", ios::app); // Abre o arquivo no modo de adição (append)
+    if (!arquivo) {
+        cout << "Erro ao abrir o arquivo de histórico.\n";
+        return;
+    }
+
+    // Escrever os dados no arquivo
+    arquivo << "Jogo entre " << jogador1 << " e " << jogador2 << ":\n";
+    arquivo << "Tabuleiro do " << jogador1 << ":\n";
+    for (int z = 0; z < SIZE; z++) {
+        arquivo << "Camada Z = " << z << ":\n";
+        for (int y = 0; y < SIZE; y++) {
+            for (int x = 0; x < SIZE; x++) {
+                arquivo << tabuleiro1[x][y][z] << " ";
+            }
+            arquivo << "\n";
+        }
+        arquivo << "\n";
+    }
+
+    arquivo << "Tabuleiro do " << jogador2 << ":\n";
+    for (int z = 0; z < SIZE; z++) {
+        arquivo << "Camada Z = " << z << ":\n";
+        for (int y = 0; y < SIZE; y++) {
+            for (int x = 0; x < SIZE; x++) {
+                arquivo << tabuleiro2[x][y][z] << " ";
+            }
+            arquivo << "\n";
+        }
+        arquivo << "\n";
+    }
+
+    arquivo << "---------------------------------------------\n";
+    arquivo.close();
+    cout << "Histórico salvo com sucesso!\n";
+}
 void mostrarHistorico() {
-    cout << "\n[Historico de Jogos]\n";
-    // Aqui será implementada a leitura do histórico de ficheiro
-    cout << "Historico ainda nao implementado.\n";
+    ifstream arquivo("historico.txt");
+    if (!arquivo) {
+        cout << "Nenhum histórico encontrado.\n";
+        return;
+    }
+    cout << "\n[Histórico de Jogos]\n";
+    string linha;
+    while (getline(arquivo, linha)) {
+        cout << linha << "\n";
+    }
+    arquivo.close();
+    }
 }
 
 bool confirmarSaida() {
