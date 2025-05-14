@@ -15,7 +15,7 @@ std::vector<std::vector<std::vector<int>>> tabuleiro2 (SIZE, std::vector<std::ve
 //Declarar funções
 int menu();
 void prepJogo();
-void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tabuleiro = tabuleiro1);
+void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tabuleiroA = tabuleiro1, std::vector<std::vector<std::vector<int>>> tabuleiroB = tabuleiro2);
 std::string oQueImprimirLinha(int x, int y, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador);
 std::string repetirString(const std::string& s, int n);
 
@@ -61,7 +61,7 @@ void prepJogo(){
     std::cin >> jogador1;
 
     // Pedir input para colocar as naves do Player1
-    gameUI(jogador1);
+    gameUI(jogador1, tabuleiro1, tabuleiro2);
     std::string phrase = jogador1 + " coloca as tuas naves: \n";
     std::cout << phrase;
 
@@ -73,17 +73,12 @@ void prepJogo(){
     std::cin >> jogador2;
 
     // Pedir input para colocar as naves do Player2
-    gameUI(jogador2);
+    gameUI(jogador2, tabuleiro2, tabuleiro1);
     phrase = jogador2 + " coloca as tuas naves: \n";
     std::cout << phrase;
-
-
-
-
-
 }
 
-void gameUI(std::string jogador = "Jogador", std::vector<std::vector<std::vector<int>>> tabuleiro) {
+void gameUI(std::string jogador = "Jogador", std::vector<std::vector<std::vector<int>>> tabuleiroA, std::vector<std::vector<std::vector<int>>> tabuleiroB) {
     std::string titulo = "╔══════════════════════════════════════════╣ " + jogador + " ╠══════════════════════════════════════════╗\n";
     std::string empty = "║                                                       " + std::string(jogador.size(), ' ') + "                                 ║\n";
     std::string cabecalho = "║  Meu Tabuleiro:                              " + std::string(jogador.size(), ' ') + " Tabuleiro Inimigo:                       ║\n";
@@ -96,25 +91,25 @@ void gameUI(std::string jogador = "Jogador", std::vector<std::vector<std::vector
     std::cout << empty;
     std::cout << cabecalho;
     std::cout << tabuleiroIni;
-    std::cout << "║ " + oQueImprimirLinha(0,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(0,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(1,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(1,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(2,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(2,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(3,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(3,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(4,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(4,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(5,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(5,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(6,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(6,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(7,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(7,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(8,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << "║ " + oQueImprimirLinha(8,0, tabuleiroA, tabuleiroB, jogador) + " ║\n"; 
     std::cout << tabuleiroStr;
-    std::cout << "║ " + oQueImprimirLinha(9,0, tabuleiro1, tabuleiro2, jogador) + " ║\n";
+    std::cout << "║ " + oQueImprimirLinha(9,0, tabuleiroA, tabuleiroB, jogador) + " ║\n";
     std::cout << tabuleiroEnd;
     std::cout << empty;
     std::cout << fim;
@@ -128,8 +123,24 @@ std::string oQueImprimirLinha(int x, int y, std::vector<std::vector<std::vector<
     for (int i = 0; i < SIZE; i++) {
         int valor = tabuleiroBom[x][y][i];
 
+        std::string placement = "";
+        switch (valor){
+            case 0: // vazio
+                placement = " ";
+                break;
+            case 1: // tem nave
+                placement = "🚀";
+                break;
+            case 2: // morreu
+                placement = "💥";
+                break;
+            default:
+                return "⚠️";
+                break;
+        }
+
         // Formata cada valor com largura 3 para alinhar (como " 5 ", "10 ", etc.)
-        oss << "┃" << std::setw(2) << std::setfill(' ') << valor << " ";
+        oss << "┃" << std::setw(2) << std::setfill(' ') << placement << " ";
     }
     oss << "┃";  // Fecha a última barra
     oss << "    " + std::string(jogador.size(), ' ');
@@ -137,9 +148,25 @@ std::string oQueImprimirLinha(int x, int y, std::vector<std::vector<std::vector<
     //Tabuleiro do inimigo
     for (int i = 0; i < SIZE; i++) {
         int valor = tabuleiroMau[x][y][i];
+        
+        std::string placement = "";
+        switch (valor){
+            case 0: // vazio
+                placement = " ";
+                break;
+            case 1: // tem nave
+                placement = "🚀";
+                break;
+            case 2: // morreu
+                placement = "💥";
+                break;
+            default:
+                return "⚠️";
+                break;
+        }
 
         // Formata cada valor com largura 3 para alinhar (como " 5 ", "10 ", etc.)
-        oss << "┃" << std::setw(2) << std::setfill(' ') << valor << " ";
+        oss << "┃" << std::setw(2) << std::setfill(' ') << placement << " ";
     }
     oss << "┃";  // Fecha a última barra
 
