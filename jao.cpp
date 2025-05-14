@@ -9,7 +9,7 @@
 
 // Constantes + Variáveis globais
 const int SIZE = 10;
-const bool READ_FROM_FILE = false;
+const bool READ_FROM_FILE = true;
 
 std::vector<std::vector<std::vector<int>>> tabuleiro1 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 1
 std::vector<std::vector<std::vector<int>>> tabuleiro2 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 2
@@ -21,6 +21,7 @@ int menu();
 void prepJogo();
 void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tabuleiroA = tabuleiro1, std::vector<std::vector<std::vector<int>>> tabuleiroB = tabuleiro2);
 void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro);
+void jogar();
 std::string oQueImprimirLinha(int x, int y, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador);
 std::string repetirString(const std::string& s, int n);
 void lerInputString(std::string& s);
@@ -48,6 +49,7 @@ int menu(){  // Menu com caracteres UTF-8 de box
 
         if (opcao == "1"){
             prepJogo();
+            jogar();
         } else if (opcao == "2"){
             std::cout << "\n\n\n";
             //configuracoes();
@@ -140,7 +142,7 @@ void prepJogo(){
     }
 
     // Confirmar que o jogador está OK! para passar o computador
-    std::cout << "Escreve \"Y\" para passar o computador ao próximo Player:\n";
+    std::cout << "Escreve \"Y\" para passar o computador ao próximo Player: ";
     std::string resposta;
     while (true) {
         lerInputString(resposta);
@@ -148,20 +150,85 @@ void prepJogo(){
             std::cout << "Passando o computador ao próximo Player...\n";
             break;
         } else {
-            std::cout << "Resposta inválida. Por favor escreve \"Y\".\n";
+            std::cout << "Resposta inválida. Por favor escreve \"Y\" ou \"y\".\n";
         }
     }
 
-
     // Pedir input do Player2
-    std::cout << "Insira o nome do jogador 2: ";
+    std::cout << "╼Insira o nome do jogador 2: ";
     std::string jogador2;
     lerInputString(jogador2);
 
     // Pedir input para colocar as naves do Player2
     gameUI(jogador2, tabuleiro2, tabuleiro1);
-    phrase = jogador2 + " coloca as tuas naves: \n";
+    phrase = jogador2 + " vamos colocar as tuas naves!\n";
     std::cout << phrase;
+
+    // Nave Caça
+    for (int i = 0; i < 4; i++){
+        std::cout << "Nave: Caca (1)\n";
+        nave=1;
+        std::cout << "╼Insira a coordenadas (x y z): ";
+        lerInputInt(x);
+        lerInputInt(y);
+        lerInputInt(z);
+        orientacao = 0;
+
+        colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+        std::cout << "Nave colocada com sucesso!\n";
+        gameUI(jogador2, tabuleiro2, tabuleiro1);
+    }
+    
+    // Nave Fragata
+    for (int i = 0; i < 3; i++){
+        std::cout << "Nave: Fragata (2)\n";
+        nave=2;
+        std::cout << "╼Insira a coordenadas (x y z): ";
+        lerInputInt(x);
+        lerInputInt(y);
+        lerInputInt(z);
+        std::cout << "╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
+        lerInputInt(orientacao);
+
+        colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+        std::cout << "Nave colocada com sucesso!\n";
+        gameUI(jogador2, tabuleiro2, tabuleiro1);
+    }
+    
+    // Nave Contratorpedeiro
+    for (int i = 0; i < 2; i++){
+        std::cout << "Nave: Contratorpedeiro (3)\n";
+        nave=3;
+        std::cout << "Insira a coordenadas (x y z): ";
+        lerInputInt(x);
+        lerInputInt(y);
+        lerInputInt(z);
+        std::cout << "╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
+        lerInputInt(orientacao);
+
+        colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+        std::cout << "Nave colocada com sucesso!\n";
+        gameUI(jogador2, tabuleiro2, tabuleiro1);
+    }
+    
+    // Nave Cruzador
+    for (int i = 0; i < 1; i++){
+        std::cout << "Nave: Cruzador (4)\n";
+        nave=4;
+        std::cout << "Insira a coordenadas (x y z): ";
+        lerInputInt(x);
+        lerInputInt(y);
+        lerInputInt(z);
+        std::cout << "Insira a orientacao \n0: +z\n 1: -z\n 2: +y\n 3: -y\n 4: +x\n 5: -x\nOrientacao: ";
+        lerInputInt(orientacao);
+
+        colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+        std::cout << "Nave colocada com sucesso!\n";
+        gameUI(jogador2, tabuleiro2, tabuleiro1);
+    }
+
+    // OK! Prontos para efetivamente começar a jogar!
+
 }
 
 void gameUI(std::string jogador = "Jogador", std::vector<std::vector<std::vector<int>>> tabuleiroA, std::vector<std::vector<std::vector<int>>> tabuleiroB) {
@@ -233,6 +300,12 @@ void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<s
 }
 
 
+/* FUNÇÕES DO JOGO */
+void jogar(){
+    std::cout << "A começar o jogo!\n";
+}
+
+
 /* FUNÇÕES AUXILIARES */
 std::string oQueImprimirLinha(int x, int z, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador) {
     std::ostringstream oss;
@@ -274,11 +347,14 @@ std::string oQueImprimirLinha(int x, int z, std::vector<std::vector<std::vector<
             case 0: // vazio
                 placement = " ";
                 break;
-            case 1: // tem nave
-                placement = "🚀";
+            case 1: // tem nave mas como é inimigo não podemos ver
+                placement = " ";
                 break;
             case 2: // morreu
                 placement = "💥";
+                break;
+            case 3: // falhou
+                placement = "❌";
                 break;
             default:
                 return "⚠️";
