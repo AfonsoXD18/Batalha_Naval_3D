@@ -5,12 +5,16 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 // Constantes + Variáveis globais
 const int SIZE = 10;
+const bool READ_FROM_FILE = false;
 
 std::vector<std::vector<std::vector<int>>> tabuleiro1 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 1
 std::vector<std::vector<std::vector<int>>> tabuleiro2 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 2
+std::ifstream inputFile("entrada.txt");
+
 
 //Declarar funções
 int menu();
@@ -19,8 +23,11 @@ void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tab
 void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro);
 std::string oQueImprimirLinha(int x, int y, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador);
 std::string repetirString(const std::string& s, int n);
+void lerInputString(std::string& s);
+void lerInputInt(int& x);
 
 
+/* CÓDIGO GERAL */
 int main() {
     menu();
     return 0;
@@ -37,7 +44,7 @@ int menu(){  // Menu com caracteres UTF-8 de box
         std::cout << "Escolha uma opcão: ";
         
         std::string opcao;
-        std::cin >> opcao;
+        lerInputString (opcao);
 
         if (opcao == "1"){
             prepJogo();
@@ -57,9 +64,9 @@ int menu(){  // Menu com caracteres UTF-8 de box
 
 void prepJogo(){
     // Pedir input do Player1
-    std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n🚢🚢🚢A começar jogo!!!🚢🚢🚢\n\n╼Insira o nome do jogador 1: ";
+    std::cout << "n🚢🚢🚢A começar jogo!!!🚢🚢🚢\n\n╼Insira o nome do jogador 1: ";
     std::string jogador1;
-    std::cin >> jogador1;
+    lerInputString(jogador1);
 
     // Pedir input para colocar as naves do Player1
     gameUI(jogador1, tabuleiro1, tabuleiro2);
@@ -73,58 +80,83 @@ void prepJogo(){
     for (int i = 0; i < 4; i++){
         std::cout << "Nave: Caca (1)\n";
         nave=1;
-        std::cout << "Insira a coordenadas (x y z): ";
-        std::cin >> x >> y >> z;
+        std::cout << "╼Insira a coordenadas (x y z): ";
+        lerInputInt(x);
+        lerInputInt(y);
+        lerInputInt(z);
         orientacao = 0;
 
         colocarNave(x, y, z, nave, orientacao, tabuleiro1);
         std::cout << "Nave colocada com sucesso!\n";
         gameUI(jogador1, tabuleiro1, tabuleiro2);
     }
+    
     // Nave Fragata
     for (int i = 0; i < 3; i++){
         std::cout << "Nave: Fragata (2)\n";
         nave=2;
-        std::cout << "Insira a coordenadas (x y z): ";
-        std::cin >> x >> y >> z;
-        std::cout << "Insira a orientacao (0: +z, 1: -z, 2: +y, 3: -y, 4: +x, 5: -x): ";
-        std::cin >> orientacao;
+        std::cout << "╼Insira a coordenadas (x y z): ";
+        lerInputInt(x);
+        lerInputInt(y);
+        lerInputInt(z);
+        std::cout << "╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
+        lerInputInt(orientacao);
 
         colocarNave(x, y, z, nave, orientacao, tabuleiro1);
         std::cout << "Nave colocada com sucesso!\n";
         gameUI(jogador1, tabuleiro1, tabuleiro2);
     }
+    
     // Nave Contratorpedeiro
     for (int i = 0; i < 2; i++){
         std::cout << "Nave: Contratorpedeiro (3)\n";
         nave=3;
         std::cout << "Insira a coordenadas (x y z): ";
-        std::cin >> x >> y >> z;
-        std::cout << "Insira a orientacao (0: +z, 1: -z, 2: +y, 3: -y, 4: +x, 5: -x): ";
-        std::cin >> orientacao;
+        lerInputInt(x);
+        lerInputInt(y);
+        lerInputInt(z);
+        std::cout << "╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
+        lerInputInt(orientacao);
 
         colocarNave(x, y, z, nave, orientacao, tabuleiro1);
         std::cout << "Nave colocada com sucesso!\n";
         gameUI(jogador1, tabuleiro1, tabuleiro2);
     }
+    
     // Nave Cruzador
     for (int i = 0; i < 1; i++){
         std::cout << "Nave: Cruzador (4)\n";
         nave=4;
         std::cout << "Insira a coordenadas (x y z): ";
-        std::cin >> x >> y >> z;
-        std::cout << "Insira a orientacao (0: +z, 1: -z, 2: +y, 3: -y, 4: +x, 5: -x): ";
-        std::cin >> orientacao;
+        lerInputInt(x);
+        lerInputInt(y);
+        lerInputInt(z);
+        std::cout << "Insira a orientacao \n0: +z\n 1: -z\n 2: +y\n 3: -y\n 4: +x\n 5: -x\nOrientacao: ";
+        lerInputInt(orientacao);
 
         colocarNave(x, y, z, nave, orientacao, tabuleiro1);
         std::cout << "Nave colocada com sucesso!\n";
         gameUI(jogador1, tabuleiro1, tabuleiro2);
     }
 
+    // Confirmar que o jogador está OK! para passar o computador
+    std::cout << "Escreve \"Y\" para passar o computador ao próximo Player:\n";
+    std::string resposta;
+    while (true) {
+        lerInputString(resposta);
+        if (resposta == "Y" || resposta == "y") {
+            std::cout << "Passando o computador ao próximo Player...\n";
+            break;
+        } else {
+            std::cout << "Resposta inválida. Por favor escreve \"Y\".\n";
+        }
+    }
+
+
     // Pedir input do Player2
     std::cout << "Insira o nome do jogador 2: ";
     std::string jogador2;
-    std::cin >> jogador2;
+    lerInputString(jogador2);
 
     // Pedir input para colocar as naves do Player2
     gameUI(jogador2, tabuleiro2, tabuleiro1);
@@ -201,7 +233,7 @@ void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<s
 }
 
 
-/* FUNCOES AUXILIARES */
+/* FUNÇÕES AUXILIARES */
 std::string oQueImprimirLinha(int x, int z, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador) {
     std::ostringstream oss;
     // tabuleiro do player em questão
@@ -264,4 +296,27 @@ std::string oQueImprimirLinha(int x, int z, std::vector<std::vector<std::vector<
 std::string repetirString(const std::string& s, int n) {
     std::string resultado;for (int i = 0; i < n; ++i) resultado += s;
     return resultado;
+}
+
+void lerInputString(std::string& s) {
+    if (READ_FROM_FILE && inputFile.is_open()) {
+        if (inputFile >> s) {
+            return; // Leu com sucesso
+        } else {
+            // Falhou a leitura (EOF ou erro), fechamos e passamos para std::cin
+            inputFile.close();
+        }
+    }
+    std::cin >> s;
+}
+
+void lerInputInt(int& x) {
+    if (READ_FROM_FILE && inputFile.is_open()) {
+        if (inputFile >> x) {
+            return; // Leu com sucesso
+        } else {
+            inputFile.close();
+        }
+    }
+    std::cin >> x;
 }
