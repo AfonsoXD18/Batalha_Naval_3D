@@ -1,6 +1,8 @@
 // Este ficheiro é a versão do jão! please não mexam :))
 // Compilar com: g++ -std=c++14 jao.cpp -o jao; ./jao
 
+#include <sstream>
+#include <iomanip>
 #include <iostream>
 #include <vector>
 
@@ -14,6 +16,8 @@ std::vector<std::vector<std::vector<int>>> tabuleiro2 (SIZE, std::vector<std::ve
 int menu();
 void prepJogo();
 void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tabuleiro = tabuleiro1);
+std::string oQueImprimirLinha(int x, int y, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador);
+std::string repetirString(const std::string& s, int n);
 
 int main() {
     menu();
@@ -79,35 +83,70 @@ void prepJogo(){
 
 }
 
-void gameUI(std::string jogador1 = "Jogador 1", std::vector<std::vector<std::vector<int>>> tabuleiro) {
-    std::string titulo = "╔══════════════════════════════════╣ " + jogador1 + " ╠══════════════════════════════════╗\n";
+void gameUI(std::string jogador = "Jogador", std::vector<std::vector<std::vector<int>>> tabuleiro) {
+    std::string titulo = "╔══════════════════════════════════════════╣ " + jogador + " ╠══════════════════════════════════════════╗\n";
+    std::string empty = "║                                                       " + std::string(jogador.size(), ' ') + "                                 ║\n";
+    std::string cabecalho = "║  Meu Tabuleiro:                              " + std::string(jogador.size(), ' ') + " Tabuleiro Inimigo:                       ║\n";
+    std::string tabuleiroIni = "║ ┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓    " + std::string(jogador.size(), ' ') + "┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓ ║\n";   //41 caracteres para fazer tabuleiro    
+    std::string tabuleiroStr = "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫    " + std::string(jogador.size(), ' ') + "┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫ ║\n";
+    std::string tabuleiroEnd = "║ ┗━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┛    " + std::string(jogador.size(), ' ') + "┗━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┛ ║\n";
+    std::string fim = "╚═══════════════════════════════════════════════" + repetirString("═", jogador.size()) + "═════════════════════════════════════════╝\n";
+
     std::cout << titulo;
-    std::cout << "║                                                                            ║\n";
-    std::cout << "║  Meu Tabuleiro:                                                            ║\n";
-    std::cout << "║ ┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓                                  ║\n";
+    std::cout << empty;
+    std::cout << cabecalho;
+    std::cout << tabuleiroIni;
+    std::cout << "║ " + oQueImprimirLinha(0,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(1,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(2,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(3,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(4,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(5,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(6,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(7,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(8,0, tabuleiro1, tabuleiro2, jogador) + " ║\n"; 
+    std::cout << tabuleiroStr;
+    std::cout << "║ " + oQueImprimirLinha(9,0, tabuleiro1, tabuleiro2, jogador) + " ║\n";
+    std::cout << tabuleiroEnd;
+    std::cout << empty;
+    std::cout << fim;
+}
 
-    std::string tabuleiroStr = "║ ┃ 0 ┃ 1 ┃ 2 ┃ 3 ┃ 4 ┃ 5 ┃ 6 ┃ 7 ┃ 8 ┃ 9 ┃                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫                                  ║\n";
-    std::cout << tabuleiroStr;
-    std::cout << "║ ┗━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┛                                  ║\n";
 
-    std::cout << "║                                                                            ║\n";
-    std::cout << "╚════════════════════════════════════════════════════════════════════════════╝\n";
+/* FUNCOES AUXILIARES */
+std::string oQueImprimirLinha(int x, int y, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador) {
+    std::ostringstream oss;
+    // tabuleiro do player em questão
+    for (int i = 0; i < SIZE; i++) {
+        int valor = tabuleiroBom[x][y][i];
+
+        // Formata cada valor com largura 3 para alinhar (como " 5 ", "10 ", etc.)
+        oss << "┃" << std::setw(2) << std::setfill(' ') << valor << " ";
+    }
+    oss << "┃";  // Fecha a última barra
+    oss << "    " + std::string(jogador.size(), ' ');
+    
+    //Tabuleiro do inimigo
+    for (int i = 0; i < SIZE; i++) {
+        int valor = tabuleiroMau[x][y][i];
+
+        // Formata cada valor com largura 3 para alinhar (como " 5 ", "10 ", etc.)
+        oss << "┃" << std::setw(2) << std::setfill(' ') << valor << " ";
+    }
+    oss << "┃";  // Fecha a última barra
+
+    return oss.str();
+}
+
+std::string repetirString(const std::string& s, int n) {
+    std::string resultado;for (int i = 0; i < n; ++i) resultado += s;
+    return resultado;
 }
