@@ -306,8 +306,8 @@ void jogar(){
     // Ciclo de jogo!
     std::cout << "A começar o jogo!\n";
     bool player = true;
-    int pontuação1 = 0;
-    int pontuação2 = 0;
+    int pontuacao1 = 0;
+    int pontuacao2 = 0;
     int x, y, z;
     while (true){
         if (player){
