@@ -1,6 +1,16 @@
 // Este ficheiro é a versão do jão! please não mexam :))
 // Compilar com: chcp 65001; g++ -std=c++14 jao.cpp -o jao; ./jao
 
+
+/*
+TODO:
+ - Escolher que Z queremos ver do tabuleiro
+ - Funcao que altera o tabuleiro consoante o disparo
+ - Manegeamento de pontos --> posso colocar no cabeçalho à frente de cada tabuleiro o total de pontos 
+*/
+
+
+
 #include <sstream>
 #include <iomanip>
 #include <iostream>
@@ -9,7 +19,7 @@
 
 // Constantes + Variáveis globais
 const int SIZE = 10;
-const bool READ_FROM_FILE = false;
+const bool READ_FROM_FILE = true;
 
 std::vector<std::vector<std::vector<int>>> tabuleiro1 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 1
 std::vector<std::vector<std::vector<int>>> tabuleiro2 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 2
