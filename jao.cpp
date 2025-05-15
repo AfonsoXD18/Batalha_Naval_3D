@@ -9,7 +9,7 @@
 
 // Constantes + Variáveis globais
 const int SIZE = 10;
-const bool READ_FROM_FILE = true;
+const bool READ_FROM_FILE = false;
 
 std::vector<std::vector<std::vector<int>>> tabuleiro1 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 1
 std::vector<std::vector<std::vector<int>>> tabuleiro2 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 2
