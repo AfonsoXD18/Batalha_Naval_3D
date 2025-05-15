@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <iomanip> // Para setw
+#include <fstream> // Para manipulação de arquivos
 using namespace std;
 // Armazena os resultados
 struct Jogo {
@@ -12,7 +13,7 @@ struct Jogo {
     string data; // Data do jogo
 };
 
-// Classe para os resultados dos jogos
+
 class HistoricoJogos {
 private:
     vector<Jogo> jogos;
@@ -21,11 +22,25 @@ private:
 public:
     // Adiciona um novo jogo ao histórico
     void adicionarJogo(const string& jogador1, const string& jogador2, int resultado1, int resultado2, const string& data) {
-        if (jogos.size() >= maxJogos) {
-            jogos.erase(jogos.begin()); // Remove o jogo mais antigo
-        }
-        jogos.push_back({jogador1, jogador2, resultado1, resultado2, data});
+    if (jogos.size() > maxJogos) { // Remove o jogo mais antigo apenas se exceder o limite
+        jogos.erase(jogos.begin());
     }
+    jogos.push_back({jogador1, jogador2, resultado1, resultado2, data});
+
+    // Criar um ficheiro para o jogo
+    string nomeFicheiro = "resultado_" + data + ".txt";
+    ofstream ficheiro(nomeFicheiro);
+    if (ficheiro.is_open()) {
+        ficheiro << "Jogador 1: " << jogador1 << endl;
+        ficheiro << "Jogador 2: " << jogador2 << endl;
+        ficheiro << "Resultado 1: " << resultado1 << endl;
+        ficheiro << "Resultado 2: " << resultado2 << endl;
+        ficheiro << "Data: " << data << endl;
+        ficheiro.close();
+    } else {
+        cerr << "Erro ao criar o ficheiro: " << nomeFicheiro << endl;
+    }
+}
 
     // Exibe a tabela de resultados
     void exibirResultados() const {
