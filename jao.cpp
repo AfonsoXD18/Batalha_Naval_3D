@@ -14,7 +14,8 @@ const bool READ_FROM_FILE = true;
 std::vector<std::vector<std::vector<int>>> tabuleiro1 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 1
 std::vector<std::vector<std::vector<int>>> tabuleiro2 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 2
 std::ifstream inputFile("entrada.txt");
-
+std::string player1 = "Jogador 1";
+std::string player2 = "Jogador 2";
 
 //Declarar funções
 int menu();
@@ -232,7 +233,7 @@ void prepJogo(){
 }
 
 void gameUI(std::string jogador = "Jogador", std::vector<std::vector<std::vector<int>>> tabuleiroA, std::vector<std::vector<std::vector<int>>> tabuleiroB) {
-    std::string titulo = "\n\n╔════════════════════════════════════════════╣ " + jogador + " ╠════════════════════════════════════════════╗\n";
+    std::string titulo = "╔════════════════════════════════════════════╣ " + jogador + " ╠════════════════════════════════════════════╗\n";
     std::string empty = "║                                                         " + std::string(jogador.size(), ' ') + "                                   ║\n";
     std::string cabecalho = "║    Meu Tabuleiro:                              " + std::string(jogador.size(), ' ') + " Tabuleiro Inimigo:                         ║\n";
     std::string valores = "║     Y   1   2   3   4   5   6   7   8   9      " + std::string(jogador.size(), ' ') + "  Y   1   2   3   4   5   6   7   8   9     ║\n";   //41 caracteres para fazer tabuleiro    
@@ -302,7 +303,38 @@ void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<s
 
 /* FUNÇÕES DO JOGO */
 void jogar(){
+    // Ciclo de jogo!
     std::cout << "A começar o jogo!\n";
+    bool player = true;
+    int pontuação1 = 0;
+    int pontuação2 = 0;
+    int x, y, z;
+    while (true){
+        if (player){
+            std::cout << player1 + "! és tu a jogar!\n";
+            gameUI(player1, tabuleiro1, tabuleiro2);
+            std::cout << "╼Insira a coordenadas do ataque(x y z) ---> uma das coordenadas tem que ser 0: ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            if (x != 0 && y != 0 && z != 0){
+                std::cout << "╼Coordenadas inválidas! Tente novamente.\n";
+                continue;
+            }
+        }else{
+            std::cout << player2 + "! és tu a jogar!\n";
+            gameUI(player2, tabuleiro2, tabuleiro1);
+            std::cout << "╼Insira a coordenadas do ataque(x y z) ---> uma das coordenadas tem que ser 0: ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            if (x != 0 && y != 0 && z != 0){
+                std::cout << "╼Coordenadas inválidas! Tente novamente.\n";
+                continue;
+            }
+        }
+        player = !player; // muda o proximo jogador
+    }
 }
 
 
