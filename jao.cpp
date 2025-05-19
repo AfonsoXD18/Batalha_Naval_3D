@@ -88,7 +88,6 @@ int menu(){  // Menu com caracteres UTF-8 de box
 }
 
 void prepJogo(){
-    tocarSom("som2");
 
     // Pedir input do Player1
     std::cout << "🚢🚢🚢 começar jogo!!!🚢🚢🚢\n\n╼Insira o nome do jogador 1: ";
@@ -429,6 +428,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
         for (int i = 0; i < 10; ++i){
             // Se atingir uma nave, marca com 'X' e aumenta a pontuação
             if (tabuleiro[i][y][z] == 1){
+                tocarSom("som2");
                 tabuleiro[i][y][z] = 2;
                 pontuacao++;
                 acertou = true;
@@ -443,6 +443,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
     else if (y == 0){
         for (int i = 0; i < 10; ++i){
             if (tabuleiro[x][i][z] == 1){
+                tocarSom("som2");
                 tabuleiro[x][i][z] = 2;
                 pontuacao++;
                 acertou = true;
@@ -456,6 +457,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
     else if (z == 0){
         for (int i = 0; i < 10; ++i){
             if (tabuleiro[x][y][i] == 1){
+                tocarSom("som2");
                 tabuleiro[x][y][i] = 2;
                 pontuacao++;
                 acertou = true;
