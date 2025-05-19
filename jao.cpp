@@ -92,7 +92,7 @@ int menu(){  // Menu com caracteres UTF-8 de box
 void prepJogo(){
 
     // Pedir input do Player1
-    std::cout << "🚢🚢🚢 começar jogo!!!🚢🚢🚢\n\n╼Insira o nome do jogador 1: ";
+    std::cout << "🚢🚢🚢 Começar jogo!!!🚢🚢🚢\n\n╼Insira o nome do jogador 1: ";
     lerInputString(player1);
 
     // Pedir input para colocar as naves do Player1
