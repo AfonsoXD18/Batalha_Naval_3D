@@ -501,6 +501,8 @@ void jogar(){
                 std::cout << "╼Coordenadas inválidas! Tente novamente.\n";
                 continue;
             }
+            player = !player; // muda o proximo jogador
+
 
             // Verifica se acertou ou não
             shoot(tabuleiro2, x, y, z, pontuacao1);
@@ -524,6 +526,7 @@ void jogar(){
                 std::cout << "╼Coordenadas inválidas! Tente novamente.\n";
                 continue;
             }
+            player = !player; // muda o proximo jogador
 
             //Verifica se acertou ou não
             shoot(tabuleiro1, x, y, z, pontuacao2);
@@ -534,8 +537,7 @@ void jogar(){
                 std::cout << "O jogo acabou!\n";
                 std::cout << "A voltar ao Menu inicial......\n";
                 break;
-        }
-        player = !player; // muda o proximo jogador
+            }
         }
     }
 }
