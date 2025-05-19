@@ -41,7 +41,7 @@ int menu();
 void prepJogo();
 void gameUI(std::string player1, std::vector<std::vector<std::vector<int>>> tabuleiroA = tabuleiro1, std::vector<std::vector<std::vector<int>>> tabuleiroB = tabuleiro2, int camadaZ = 0);
 bool colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro);
-void colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro);
+bool colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro);
 void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro);
 void jogar();
 void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, int z, int& pontuacao);
@@ -416,17 +416,38 @@ bool colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<s
     return true;
 }
 
-void colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro) {
-    // Coloca a nave no tabuleiro 3*3*3 à volta do ponto (x,y,z)
+bool colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro) {
+    int SIZE = tabuleiro.size(); // Assume-se tabuleiro cúbico (SIZE x SIZE x SIZE)
+
+    // Primeiro, verifica se todas as células na zona 3x3x3 estão livres e dentro dos limites
     for (int i = -1; i <= 1; i++) {
         for (int j = -1; j <= 1; j++) {
             for (int k = -1; k <= 1; k++) {
-                if (x + i >= 0 && x + i < SIZE && y + j >= 0 && y + j < SIZE && z + k >= 0 && z + k < SIZE) {
-                    tabuleiro[x + i][y + j][z + k] = 1;
-                }
+                int xi = x + i;
+                int yj = y + j;
+                int zk = z + k;
+
+                // Verificação de limites
+                if (xi < 0 || xi >= SIZE || yj < 0 || yj >= SIZE || zk < 0 || zk >= SIZE)
+                    return false;
+
+                // Verificação de sobreposição
+                if (tabuleiro[xi][yj][zk] != 0)
+                    return false;
             }
         }
     }
+
+    // Se todas as posições forem válidas, coloca a nave mãe
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            for (int k = -1; k <= 1; k++) {
+                tabuleiro[x + i][y + j][z + k] = 1;
+            }
+        }
+    }
+
+    return true;
 }
 
 void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro) {
@@ -475,6 +496,15 @@ void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro) {
         int z = rand() % SIZE;
         int orientacao = rand() % 6;
         if (colocarNave(x, y, z, 4, orientacao, tabuleiro)){
+            j++;
+        }
+    }
+
+    while (j < 1){
+        int x = rand() % SIZE;
+        int y = rand() % SIZE;
+        int z = rand() % SIZE;
+        if (colocarNaveMae(x, y, z, tabuleiro)){
             j++;
         }
     }
