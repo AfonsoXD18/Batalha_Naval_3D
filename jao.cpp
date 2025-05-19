@@ -41,8 +41,9 @@ std::string player2 = "Jogador 2";
 int menu();
 void prepJogo();
 void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tabuleiroA = tabuleiro1, std::vector<std::vector<std::vector<int>>> tabuleiroB = tabuleiro2, int camadaZ = 0);
-void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro);
+bool colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro);
 void colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro);
+void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro);
 void jogar();
 void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, int z, int& pontuacao);
 std::string oQueImprimirLinha(int x, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador, int camada);
@@ -52,7 +53,7 @@ void lerInputInt(int& x);
 void tocarSom(const std::string& som);
 
 
-/* CÓDIGO GERAL */
+/* FUNÇÕES PRÉ-JOGO */
 int main() {
     menu();
     return 0;
@@ -100,92 +101,107 @@ void prepJogo(){
     std::string phrase = jogador1 + " vamos colocar as tuas naves!\n";
     std::cout << phrase;
 
-    // vars para guardar input
-    int x, y, z, nave, orientacao, camada;
+    //perguntar se quer jogar automatico ou manual
+    std::cout << "╼Quer colocar as Naves de forma automatica? (1 - Sim, 0 - Não): ";
+    int automatico;
+    lerInputInt(automatico);
+    bool automatic = false;
+    if (automatico == 1){
+        automatic = true;
+    }
 
-    // Nave Caça
-    for (int i = 0; i < 4; i++){
-        std::cout << "Nave: Caca (1)\n";
-        nave=1;
+    if (automatic){
+        // Colocar naves automaticamente
+        std::cout << "Colocando naves automaticamente...\n";
+        randomizeNaves(tabuleiro1);
+        gameUI(jogador1, tabuleiro1, tabuleiro2, 0);
+    }else{
+        // vars para guardar input
+        int x, y, z, nave, orientacao, camada;
+
+        // Nave Caça
+        for (int i = 0; i < 4; i++){
+            std::cout << "Nave: Caca (1)\n";
+            nave=1;
+            std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(camada);
+            std::cout << "\n╼Insira a coordenadas (x y z): ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            orientacao = 0;
+
+            colocarNave(x, y, z, nave, orientacao, tabuleiro1);
+            std::cout << "\nNave colocada com sucesso!\n";
+            gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+        }
+        
+        // Nave Fragata
+        for (int i = 0; i < 3; i++){
+            std::cout << "Nave: Fragata (2)\n";
+            nave=2;
+            std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(camada);
+            std::cout << "\n╼Insira a coordenadas (x y z): ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            std::cout << "\n╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
+            lerInputInt(orientacao);
+
+            colocarNave(x, y, z, nave, orientacao, tabuleiro1);
+            std::cout << "\nNave colocada com sucesso!\n";
+            gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+        }
+        
+        // Nave Contratorpedeiro
+        for (int i = 0; i < 2; i++){
+            std::cout << "\nNave: Contratorpedeiro (3)\n";
+            nave=3;
+            std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(camada);
+            std::cout << "\nInsira a coordenadas (x y z): ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            std::cout << "\n╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
+            lerInputInt(orientacao);
+
+            colocarNave(x, y, z, nave, orientacao, tabuleiro1);
+            std::cout << "\nNave colocada com sucesso!\n";
+            gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+        }
+        
+        // Nave Cruzador
+        for (int i = 0; i < 1; i++){
+            std::cout << "\nNave: Cruzador (4)\n";
+            nave=4;
+            std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(camada);
+            std::cout << "\nInsira a coordenadas (x y z): ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            std::cout << "\nInsira a orientacao \n ╼0: +z\n ╼1: -z\n ╼2: +y\n ╼3: -y\n ╼4: +x\n ╼5: -x\nOrientacao: ";
+            lerInputInt(orientacao);
+
+            colocarNave(x, y, z, nave, orientacao, tabuleiro1);
+            std::cout << "\nNave colocada com sucesso!\n";
+            gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+        }
+
+        //Colocar nave mãe
+        std::cout << "\nNave: Mãe (3*3*3)\n";
         std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
         lerInputInt(camada);
         std::cout << "\n╼Insira a coordenadas (x y z): ";
         lerInputInt(x);
         lerInputInt(y);
         lerInputInt(z);
-        orientacao = 0;
-
-        colocarNave(x, y, z, nave, orientacao, tabuleiro1);
+        colocarNaveMae(x, y, z, tabuleiro1);
         std::cout << "\nNave colocada com sucesso!\n";
         gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
     }
-    
-    // Nave Fragata
-    for (int i = 0; i < 3; i++){
-        std::cout << "Nave: Fragata (2)\n";
-        nave=2;
-        std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
-        lerInputInt(camada);
-        std::cout << "\n╼Insira a coordenadas (x y z): ";
-        lerInputInt(x);
-        lerInputInt(y);
-        lerInputInt(z);
-        std::cout << "\n╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
-        lerInputInt(orientacao);
-
-        colocarNave(x, y, z, nave, orientacao, tabuleiro1);
-        std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
-    }
-    
-    // Nave Contratorpedeiro
-    for (int i = 0; i < 2; i++){
-        std::cout << "\nNave: Contratorpedeiro (3)\n";
-        nave=3;
-        std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
-        lerInputInt(camada);
-        std::cout << "\nInsira a coordenadas (x y z): ";
-        lerInputInt(x);
-        lerInputInt(y);
-        lerInputInt(z);
-        std::cout << "\n╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
-        lerInputInt(orientacao);
-
-        colocarNave(x, y, z, nave, orientacao, tabuleiro1);
-        std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
-    }
-    
-    // Nave Cruzador
-    for (int i = 0; i < 1; i++){
-        std::cout << "\nNave: Cruzador (4)\n";
-        nave=4;
-        std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
-        lerInputInt(camada);
-        std::cout << "\nInsira a coordenadas (x y z): ";
-        lerInputInt(x);
-        lerInputInt(y);
-        lerInputInt(z);
-        std::cout << "\nInsira a orientacao \n ╼0: +z\n ╼1: -z\n ╼2: +y\n ╼3: -y\n ╼4: +x\n ╼5: -x\nOrientacao: ";
-        lerInputInt(orientacao);
-
-        colocarNave(x, y, z, nave, orientacao, tabuleiro1);
-        std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
-    }
-
-    //Colocar nave mãe
-    std::cout << "\nNave: Mãe (3*3*3)\n";
-    std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
-    lerInputInt(camada);
-    std::cout << "\n╼Insira a coordenadas (x y z): ";
-    lerInputInt(x);
-    lerInputInt(y);
-    lerInputInt(z);
-    colocarNaveMae(x, y, z, tabuleiro1);
-    std::cout << "\nNave colocada com sucesso!\n";
-    gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
-
 
     // Confirmar que o jogador está OK! para passar o computador
     std::cout << "Escreve \"Y\" para passar o computador ao próximo Player: ";
@@ -205,94 +221,116 @@ void prepJogo(){
     std::string jogador2;
     lerInputString(jogador2);
 
-    // Pedir input para colocar as naves do Player2
-    gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
-    phrase = jogador2 + " vamos colocar as tuas naves!\n";
-    std::cout << phrase;
+    // Perguntar se quer colocar naves de forma automatica ou manual
+    std::cout << "╼Quer colocar as Naves de forma automatica? (1 - Sim, 0 - Não): ";
+    int automatico2;
+    lerInputInt(automatico2);
+    bool automatic2 = false;
+    if (automatico2 == 1){
+        automatic2 = true;
+    }
 
-    // Nave Caça
-    for (int i = 0; i < 4; i++){
-        std::cout << "\nNave: Caca (1)\n";
-        nave=1;
+    if (automatic2){
+        // Colocar naves automaticamente
+        std::cout << "Colocando naves automaticamente...\n";
+        randomizeNaves(tabuleiro2);
+        gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
+    }else{
+
+        // Colocar naves automaticamente
+        std::cout << "Colocando naves automaticamente...\n";
+        randomizeNaves(tabuleiro2);
+        gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
+
+        // Pedir input para colocar as naves do Player2
+        gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
+        phrase = jogador2 + " vamos colocar as tuas naves!\n";
+        std::cout << phrase;
+
+        // Nave Caça
+        for (int i = 0; i < 4; i++){
+            std::cout << "\nNave: Caca (1)\n";
+            nave=1;
+            std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(camada);
+            std::cout << "\n╼Insira a coordenadas (x y z): ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            orientacao = 0;
+
+            colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+            std::cout << "\nNave colocada com sucesso!\n";
+            gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+        }
+        
+        // Nave Fragata
+        for (int i = 0; i < 3; i++){
+            std::cout << "\nNave: Fragata (2)\n";
+            nave=2;
+            std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(camada);
+            std::cout << "\n╼Insira a coordenadas (x y z): ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            std::cout << "\n╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
+            lerInputInt(orientacao);
+
+            colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+            std::cout << "\nNave colocada com sucesso!\n";
+            gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+        }
+        
+        // Nave Contratorpedeiro
+        for (int i = 0; i < 2; i++){
+            std::cout << "\nNave: Contratorpedeiro (3)\n";
+            nave=3;
+            std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(camada);
+            std::cout << "\nInsira a coordenadas (x y z): ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            std::cout << "\n╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
+            lerInputInt(orientacao);
+
+            colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+            std::cout << "\nNave colocada com sucesso!\n";
+            gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+        }
+        
+        // Nave Cruzador
+        for (int i = 0; i < 1; i++){
+            std::cout << "\nNave: Cruzador (4)\n";
+            nave=4;
+            std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(camada);
+            std::cout << "\nInsira a coordenadas (x y z): ";
+            lerInputInt(x);
+            lerInputInt(y);
+            lerInputInt(z);
+            std::cout << "\nInsira a orientacao \n0: +z\n 1: -z\n 2: +y\n 3: -y\n 4: +x\n 5: -x\nOrientacao: ";
+            lerInputInt(orientacao);
+
+            colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+            std::cout << "\nNave colocada com sucesso!\n";
+            gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+        }
+
+
+            //Colocar nave mãe
+        std::cout << "\nNave: Mãe (3*3*3)\n";
         std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
         lerInputInt(camada);
         std::cout << "\n╼Insira a coordenadas (x y z): ";
         lerInputInt(x);
         lerInputInt(y);
         lerInputInt(z);
-        orientacao = 0;
-
-        colocarNave(x, y, z, nave, orientacao, tabuleiro2);
+        colocarNaveMae(x, y, z, tabuleiro2);
         std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+        gameUI(jogador1, tabuleiro2, tabuleiro1, camada);
     }
-    
-    // Nave Fragata
-    for (int i = 0; i < 3; i++){
-        std::cout << "\nNave: Fragata (2)\n";
-        nave=2;
-        std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
-        lerInputInt(camada);
-        std::cout << "\n╼Insira a coordenadas (x y z): ";
-        lerInputInt(x);
-        lerInputInt(y);
-        lerInputInt(z);
-        std::cout << "\n╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
-        lerInputInt(orientacao);
-
-        colocarNave(x, y, z, nave, orientacao, tabuleiro2);
-        std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
-    }
-    
-    // Nave Contratorpedeiro
-    for (int i = 0; i < 2; i++){
-        std::cout << "\nNave: Contratorpedeiro (3)\n";
-        nave=3;
-        std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
-        lerInputInt(camada);
-        std::cout << "\nInsira a coordenadas (x y z): ";
-        lerInputInt(x);
-        lerInputInt(y);
-        lerInputInt(z);
-        std::cout << "\n╼Insira a orientacao \n  ╼0: +z\n  ╼1: -z\n  ╼2: +y\n  ╼3: -y\n  ╼4: +x\n  ╼5: -x\nOrientacao: ";
-        lerInputInt(orientacao);
-
-        colocarNave(x, y, z, nave, orientacao, tabuleiro2);
-        std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
-    }
-    
-    // Nave Cruzador
-    for (int i = 0; i < 1; i++){
-        std::cout << "\nNave: Cruzador (4)\n";
-        nave=4;
-        std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
-        lerInputInt(camada);
-        std::cout << "\nInsira a coordenadas (x y z): ";
-        lerInputInt(x);
-        lerInputInt(y);
-        lerInputInt(z);
-        std::cout << "\nInsira a orientacao \n0: +z\n 1: -z\n 2: +y\n 3: -y\n 4: +x\n 5: -x\nOrientacao: ";
-        lerInputInt(orientacao);
-
-        colocarNave(x, y, z, nave, orientacao, tabuleiro2);
-        std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
-    }
-
-
-        //Colocar nave mãe
-    std::cout << "\nNave: Mãe (3*3*3)\n";
-    std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
-    lerInputInt(camada);
-    std::cout << "\n╼Insira a coordenadas (x y z): ";
-    lerInputInt(x);
-    lerInputInt(y);
-    lerInputInt(z);
-    colocarNaveMae(x, y, z, tabuleiro2);
-    std::cout << "\nNave colocada com sucesso!\n";
-    gameUI(jogador1, tabuleiro2, tabuleiro1, camada);
     // OK! Prontos para efetivamente começar a jogar!
 
 }
@@ -337,32 +375,50 @@ void gameUI(std::string jogador = "Jogador", std::vector<std::vector<std::vector
     std::cout << fim;
 }
 
-void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro) {
-    // Coloca a nave no tabuleiro
-    for (int i = 0; i < tamanho; i++) {
-        switch (orientacao) {
-            case 0: // ---- mais z
-                tabuleiro[x][y][z + i] = 1;
-                break;
-            case 1: // ---- menos z
-                tabuleiro[x][y][z - i] = 1;
-                break;
-            case 2: // ---- mais y
-                tabuleiro[x][y + i][z] = 1;
-                break;
-            case 3: // ---- mais y
-                tabuleiro[x][y - i][z] = 1;
-                break;
-            case 4: // ---- mais x
-                tabuleiro[x + i][y][z] = 1;
-                break;
-            case 5: // ---- menos x
-                tabuleiro[x - i][y][z] = 1;
-                break;
-            default:
-                std::cout << "Orientação inválida!\n";
-        }
+bool colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro) {
+    int dx = 0, dy = 0, dz = 0;
+
+    // Determina o vetor de deslocamento com base na orientação
+    switch (orientacao) {
+        case 0: dz = 1; break;  // +z
+        case 1: dz = -1; break; // -z
+        case 2: dy = 1; break;  // +y
+        case 3: dy = -1; break; // -y
+        case 4: dx = 1; break;  // +x
+        case 5: dx = -1; break; // -x
+        default:
+            std::cout << "Orientação inválida!\n";
+            return false;
     }
+
+    int nx = tabuleiro.size();
+    int ny = tabuleiro[0].size();
+    int nz = tabuleiro[0][0].size();
+
+    // Verifica se a nave cabe e não sobrepõe outras naves
+    for (int i = 0; i < tamanho; i++) {
+        int xi = x + dx * i;
+        int yi = y + dy * i;
+        int zi = z + dz * i;
+
+        // Verificação de limites
+        if (xi < 0 || xi >= nx || yi < 0 || yi >= ny || zi < 0 || zi >= nz)
+            return false;
+
+        // Verifica sobreposição
+        if (tabuleiro[xi][yi][zi] != 0)
+            return false;
+    }
+
+    // Coloca a nave
+    for (int i = 0; i < tamanho; i++) {
+        int xi = x + dx * i;
+        int yi = y + dy * i;
+        int zi = z + dz * i;
+        tabuleiro[xi][yi][zi] = 1;
+    }
+
+    return true;
 }
 
 void colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro) {
@@ -376,6 +432,59 @@ void colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int
             }
         }
     }
+}
+
+void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro) {
+    // Coloca naves aleatoriamente no tabuleiro
+    // 4 naves tamanho 1, 3 naves tamanho 2, 2 naves tamanho 3, 1 nave tamanho 4 e nave mae 3*3*3
+    int j = 0;
+
+    // Colocar 4 Caças
+    while (j < 4){
+        int x = rand() % SIZE;
+        int y = rand() % SIZE;
+        int z = rand() % SIZE;
+        int orientacao = 0;
+        if (colocarNave(x, y, z, 1, orientacao, tabuleiro)){
+            j++;
+        }
+    }
+
+    // Colocar 3 Fragatas
+    j = 0;
+    while (j < 3){
+        int x = rand() % SIZE;
+        int y = rand() % SIZE;
+        int z = rand() % SIZE;
+        int orientacao = rand() % 6;
+        if (colocarNave(x, y, z, 2, orientacao, tabuleiro)){
+            j++;
+        }
+    }
+
+    // Colocar 2 Contratorpedeiros
+    j = 0;
+    while (j < 2){
+        int x = rand() % SIZE;
+        int y = rand() % SIZE;
+        int z = rand() % SIZE;
+        int orientacao = rand() % 6;
+        if (colocarNave(x, y, z, 3, orientacao, tabuleiro)){
+            j++;
+        }
+    }
+
+    while (j < 1){
+        int x = rand() % SIZE;
+        int y = rand() % SIZE;
+        int z = rand() % SIZE;
+        int orientacao = rand() % 6;
+        if (colocarNave(x, y, z, 4, orientacao, tabuleiro)){
+            j++;
+        }
+    }
+
+
 }
 
 
@@ -492,6 +601,8 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
         std::cout << "💦 Não acertaste em nada...\n";
     }
 }
+
+
 
 /* FUNÇÕES AUXILIARES */
 std::string oQueImprimirLinha(int x, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador, int camada) {
