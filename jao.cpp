@@ -15,14 +15,10 @@
 
 /*
 TODO:
- - Escolher que Z queremos ver do tabuleiro
- - Funcao que altera o tabuleiro consoante o disparo
  - Manegeamento de pontos --> posso colocar no cabeçalho à frente de cada tabuleiro o total de pontos 
 */
 
 
-#include <windows.h>
-#include <mmsystem.h>
 #include <sstream>
 #include <iomanip>
 #include <iostream>
