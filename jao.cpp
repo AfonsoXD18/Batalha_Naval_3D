@@ -377,7 +377,7 @@ void jogar(){
             }
 
             //check if hit or miss
-            shoot(tabuleiro2, x, y, z, pontuacao1);
+            shoot(tabuleiro1, x, y, z, pontuacao2);
         }
         player = !player; // muda o proximo jogador
     }
