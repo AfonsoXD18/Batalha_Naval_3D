@@ -492,7 +492,10 @@ void jogar(){
     while (true){
         if (player){
             std::cout << player1 + "! és tu a jogar!\n";
-            gameUI(player1, tabuleiro1, tabuleiro2, 0);
+            // perguntar a camada de z que quer ver
+            std::cout << "╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(z);
+            gameUI(player1, tabuleiro1, tabuleiro2, z);
             std::cout << "╼Insira a coordenadas do ataque(x y z) ---> uma das coordenadas tem que ser 0: ";
             lerInputInt(x);
             lerInputInt(y);
@@ -517,7 +520,10 @@ void jogar(){
 
         }else{
             std::cout << player2 + "! és tu a jogar!\n";
-            gameUI(player2, tabuleiro2, tabuleiro1, 0);
+            // perguntar a camada de z que quer ver
+            std::cout << "╼Insira a Camada que pretende ver z (0 - 9): ";
+            lerInputInt(z);
+            gameUI(player2, tabuleiro2, tabuleiro1, z);
             std::cout << "╼Insira a coordenadas do ataque(x y z) ---> uma das coordenadas tem que ser 0: ";
             lerInputInt(x);
             lerInputInt(y);
