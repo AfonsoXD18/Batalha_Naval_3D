@@ -24,6 +24,8 @@ TODO:
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
+
 
 // Constantes + Variáveis globais
 const int SIZE = 10;
@@ -46,6 +48,7 @@ std::string oQueImprimirLinha(int x, std::vector<std::vector<std::vector<int>>> 
 std::string repetirString(const std::string& s, int n);
 void lerInputString(std::string& s);
 void lerInputInt(int& x);
+void tocarSom(const std::string& som);
 
 
 /* CÓDIGO GERAL */
@@ -85,6 +88,8 @@ int menu(){  // Menu com caracteres UTF-8 de box
 }
 
 void prepJogo(){
+    tocarSom("som2");
+
     // Pedir input do Player1
     std::cout << "🚢🚢🚢 começar jogo!!!🚢🚢🚢\n\n╼Insira o nome do jogador 1: ";
     std::string jogador1;
@@ -520,4 +525,16 @@ void lerInputInt(int& x) {
         }
     }
     std::cin >> x;
+}
+
+void tocarSom(const std::string& som){
+    #ifdef _WIN32
+        std::string comando = "powershell -c (New-Object Media.SoundPlayer '" + som + ".wav').PlaySync();";
+        system(comando.c_str());
+    #elif __APPLE__
+        std::string comando = "afplay " + som + ".wav";
+        system(comando.c_str());
+    #else
+        std::cout << "Sistema operativo não suportado para tocar som.\n";
+    #endif
 }

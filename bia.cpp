@@ -21,3 +21,15 @@ int main() {
     pararMusica();
     return 0;
 }
+
+#include <cstdlib>
+
+void tocarSom(){
+#ifdef _WIN32
+    system("powershell -c (New-Object Media.SoundPlayer 'som.wav').PlaySync();");
+#elif __APPLE__
+    system("afplay som.wav");
+#else
+    std::cout << "Sistema operativo não suportado.\n";
+#endif
+}
