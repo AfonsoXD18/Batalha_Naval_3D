@@ -174,6 +174,19 @@ void prepJogo(){
         gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
     }
 
+    //Colocar nave mãe
+    std::cout << "\nNave: Mãe (3*3*3)\n";
+    std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+    lerInputInt(camada);
+    std::cout << "\n╼Insira a coordenadas (x y z): ";
+    lerInputInt(x);
+    lerInputInt(y);
+    lerInputInt(z);
+    colocarNaveMae(x, y, z, tabuleiro1);
+    std::cout << "\nNave colocada com sucesso!\n";
+    gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+
+
     // Confirmar que o jogador está OK! para passar o computador
     std::cout << "Escreve \"Y\" para passar o computador ao próximo Player: ";
     std::string resposta;
@@ -268,6 +281,18 @@ void prepJogo(){
         gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
     }
 
+
+        //Colocar nave mãe
+    std::cout << "\nNave: Mãe (3*3*3)\n";
+    std::cout << "\n╼Insira a Camada que pretende ver z (0 - 9): ";
+    lerInputInt(camada);
+    std::cout << "\n╼Insira a coordenadas (x y z): ";
+    lerInputInt(x);
+    lerInputInt(y);
+    lerInputInt(z);
+    colocarNaveMae(x, y, z, tabuleiro2);
+    std::cout << "\nNave colocada com sucesso!\n";
+    gameUI(jogador1, tabuleiro2, tabuleiro1, camada);
     // OK! Prontos para efetivamente começar a jogar!
 
 }
@@ -336,6 +361,19 @@ void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<s
                 break;
             default:
                 std::cout << "Orientação inválida!\n";
+        }
+    }
+}
+
+void colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro) {
+    // Coloca a nave no tabuleiro 3*3*3 à volta do ponto (x,y,z)
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            for (int k = -1; k <= 1; k++) {
+                if (x + i >= 0 && x + i < SIZE && y + j >= 0 && y + j < SIZE && z + k >= 0 && z + k < SIZE) {
+                    tabuleiro[x + i][y + j][z + k] = 1;
+                }
+            }
         }
     }
 }
