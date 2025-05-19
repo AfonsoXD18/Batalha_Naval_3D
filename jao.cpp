@@ -54,6 +54,7 @@ void tocarSom(const std::string& som);
 
 /* FUNÇÕES PRÉ-JOGO */
 int main() {
+    srand(time(NULL));  // Isto serve para não ser os mesmos números aleatórios sempre
     menu();
     return 0;
 }
@@ -477,8 +478,6 @@ void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro) {
             j++;
         }
     }
-
-
 }
 
 
