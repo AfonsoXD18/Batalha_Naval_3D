@@ -21,7 +21,8 @@ TODO:
 */
 
 
-
+#include <windows.h>
+#include <mmsystem.h>
 #include <sstream>
 #include <iomanip>
 #include <iostream>
@@ -44,6 +45,7 @@ void prepJogo();
 void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tabuleiroA = tabuleiro1, std::vector<std::vector<std::vector<int>>> tabuleiroB = tabuleiro2, int camadaZ = 0);
 void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro);
 void jogar();
+void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, int z, int& pontuacao);
 std::string oQueImprimirLinha(int x, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador, int camada);
 std::string repetirString(const std::string& s, int n);
 void lerInputString(std::string& s);
@@ -373,7 +375,7 @@ void jogar(){
                 std::cout << "╼Coordenadas inválidas! Tente novamente.\n";
                 continue;
             }
-            
+
             //check if hit or miss
             shoot(tabuleiro2, x, y, z, pontuacao1);
         }
