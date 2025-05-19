@@ -542,7 +542,7 @@ void jogar(){
             if (pontuacao1 >= 10){
                 std::cout << "Parabéns " + player1 + "! Ganhou o jogo!\n";
                 std::cout << "╼A sua pontuação é: " + std::to_string(pontuacao1) + "\n";
-                std::cout << "╼A pontuação do " + player1 + " é: " + std::to_string(pontuacao2) + "\n";
+                std::cout << "╼A pontuação do " + player2 + " é: " + std::to_string(pontuacao2) + "\n";
                 std::cout << "O jogo acabou!\n";
                 std::cout << "A voltar ao Menu inicial......\n";
                 break;
@@ -569,7 +569,7 @@ void jogar(){
             if (pontuacao2 >= 10){
                 std::cout << "Parabéns " + player2 + "! Ganhou o jogo!\n";
                 std::cout << "╼A sua pontuação é: " + std::to_string(pontuacao2) + "\n";
-                std::cout << "╼A pontuação do " + player2 + " é: " + std::to_string(pontuacao1) + "\n";
+                std::cout << "╼A pontuação do " + player1 + " é: " + std::to_string(pontuacao1) + "\n";
                 std::cout << "O jogo acabou!\n";
                 std::cout << "A voltar ao Menu inicial......\n";
                 break;
