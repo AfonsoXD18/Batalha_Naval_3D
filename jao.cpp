@@ -434,6 +434,7 @@ void jogar(){
                 break;
         }
         player = !player; // muda o proximo jogador
+        }
     }
 }
 
