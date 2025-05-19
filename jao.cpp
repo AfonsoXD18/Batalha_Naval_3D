@@ -40,7 +40,7 @@ std::string player2 = "Jogador 2";
 //Declarar funções
 int menu();
 void prepJogo();
-void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tabuleiroA = tabuleiro1, std::vector<std::vector<std::vector<int>>> tabuleiroB = tabuleiro2, int camadaZ = 0);
+void gameUI(std::string player1, std::vector<std::vector<std::vector<int>>> tabuleiroA = tabuleiro1, std::vector<std::vector<std::vector<int>>> tabuleiroB = tabuleiro2, int camadaZ = 0);
 bool colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro);
 void colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro);
 void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro);
@@ -93,12 +93,12 @@ void prepJogo(){
 
     // Pedir input do Player1
     std::cout << "🚢🚢🚢 começar jogo!!!🚢🚢🚢\n\n╼Insira o nome do jogador 1: ";
-    std::string jogador1;
-    lerInputString(jogador1);
+    std::string player1;
+    lerInputString(player1);
 
     // Pedir input para colocar as naves do Player1
-    gameUI(jogador1, tabuleiro1, tabuleiro2, 0);
-    std::string phrase = jogador1 + " vamos colocar as tuas naves!\n";
+    gameUI(player1, tabuleiro1, tabuleiro2, 0);
+    std::string phrase = player1 + " vamos colocar as tuas naves!\n";
     std::cout << phrase;
 
     //perguntar se quer jogar automatico ou manual
@@ -114,7 +114,7 @@ void prepJogo(){
         // Colocar naves automaticamente
         std::cout << "Colocando naves automaticamente...\n";
         randomizeNaves(tabuleiro1);
-        gameUI(jogador1, tabuleiro1, tabuleiro2, 0);
+        gameUI(player1, tabuleiro1, tabuleiro2, 0);
     }else{
         // vars para guardar input
         int x, y, z, nave, orientacao, camada;
@@ -133,7 +133,7 @@ void prepJogo(){
 
             colocarNave(x, y, z, nave, orientacao, tabuleiro1);
             std::cout << "\nNave colocada com sucesso!\n";
-            gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+            gameUI(player1, tabuleiro1, tabuleiro2, camada);
         }
         
         // Nave Fragata
@@ -151,7 +151,7 @@ void prepJogo(){
 
             colocarNave(x, y, z, nave, orientacao, tabuleiro1);
             std::cout << "\nNave colocada com sucesso!\n";
-            gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+            gameUI(player1, tabuleiro1, tabuleiro2, camada);
         }
         
         // Nave Contratorpedeiro
@@ -169,7 +169,7 @@ void prepJogo(){
 
             colocarNave(x, y, z, nave, orientacao, tabuleiro1);
             std::cout << "\nNave colocada com sucesso!\n";
-            gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+            gameUI(player1, tabuleiro1, tabuleiro2, camada);
         }
         
         // Nave Cruzador
@@ -187,7 +187,7 @@ void prepJogo(){
 
             colocarNave(x, y, z, nave, orientacao, tabuleiro1);
             std::cout << "\nNave colocada com sucesso!\n";
-            gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+            gameUI(player1, tabuleiro1, tabuleiro2, camada);
         }
 
         //Colocar nave mãe
@@ -200,7 +200,7 @@ void prepJogo(){
         lerInputInt(z);
         colocarNaveMae(x, y, z, tabuleiro1);
         std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador1, tabuleiro1, tabuleiro2, camada);
+        gameUI(player1, tabuleiro1, tabuleiro2, camada);
     }
 
     // Confirmar que o jogador está OK! para passar o computador
@@ -218,8 +218,8 @@ void prepJogo(){
 
     // Pedir input do Player2
     std::cout << "\n╼Insira o nome do jogador 2: ";
-    std::string jogador2;
-    lerInputString(jogador2);
+    std::string player2;
+    lerInputString(player2);
 
     // Perguntar se quer colocar naves de forma automatica ou manual
     std::cout << "╼Quer colocar as Naves de forma automatica? (1 - Sim, 0 - Não): ";
@@ -234,14 +234,14 @@ void prepJogo(){
         // Colocar naves automaticamente
         std::cout << "Colocando naves automaticamente...\n";
         randomizeNaves(tabuleiro2);
-        gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
+        gameUI(player2, tabuleiro2, tabuleiro1, 0);
     }else{
         // vars para guardar input
         int x, y, z, nave, orientacao, camada;
 
         // Pedir input para colocar as naves do Player2
-        gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
-        phrase = jogador2 + " vamos colocar as tuas naves!\n";
+        gameUI(player2, tabuleiro2, tabuleiro1, 0);
+        phrase = player2 + " vamos colocar as tuas naves!\n";
         std::cout << phrase;
 
         // Nave Caça
@@ -258,7 +258,7 @@ void prepJogo(){
 
             colocarNave(x, y, z, nave, orientacao, tabuleiro2);
             std::cout << "\nNave colocada com sucesso!\n";
-            gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+            gameUI(player2, tabuleiro2, tabuleiro1, camada);
         }
         
         // Nave Fragata
@@ -276,7 +276,7 @@ void prepJogo(){
 
             colocarNave(x, y, z, nave, orientacao, tabuleiro2);
             std::cout << "\nNave colocada com sucesso!\n";
-            gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+            gameUI(player2, tabuleiro2, tabuleiro1, camada);
         }
         
         // Nave Contratorpedeiro
@@ -294,7 +294,7 @@ void prepJogo(){
 
             colocarNave(x, y, z, nave, orientacao, tabuleiro2);
             std::cout << "\nNave colocada com sucesso!\n";
-            gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+            gameUI(player2, tabuleiro2, tabuleiro1, camada);
         }
         
         // Nave Cruzador
@@ -312,7 +312,7 @@ void prepJogo(){
 
             colocarNave(x, y, z, nave, orientacao, tabuleiro2);
             std::cout << "\nNave colocada com sucesso!\n";
-            gameUI(jogador2, tabuleiro2, tabuleiro1, camada);
+            gameUI(player2, tabuleiro2, tabuleiro1, camada);
         }
 
 
@@ -326,7 +326,7 @@ void prepJogo(){
         lerInputInt(z);
         colocarNaveMae(x, y, z, tabuleiro2);
         std::cout << "\nNave colocada com sucesso!\n";
-        gameUI(jogador1, tabuleiro2, tabuleiro1, camada);
+        gameUI(player1, tabuleiro2, tabuleiro1, camada);
     }
     // OK! Prontos para efetivamente começar a jogar!
 
@@ -511,7 +511,7 @@ void jogar(){
             if (pontuacao1 >= 10){
                 std::cout << "Parabéns " + player1 + "! Ganhou o jogo!\n";
                 std::cout << "╼A sua pontuação é: " + std::to_string(pontuacao1) + "\n";
-                std::cout << "╼A pontuação do " + player2 + " é: " + std::to_string(pontuacao2) + "\n";
+                std::cout << "╼A pontuação do " + player1 + " é: " + std::to_string(pontuacao2) + "\n";
                 std::cout << "O jogo acabou!\n";
                 std::cout << "A voltar ao Menu inicial......\n";
                 break;
@@ -534,7 +534,7 @@ void jogar(){
             if (pontuacao2 >= 10){
                 std::cout << "Parabéns " + player2 + "! Ganhou o jogo!\n";
                 std::cout << "╼A sua pontuação é: " + std::to_string(pontuacao2) + "\n";
-                std::cout << "╼A pontuação do " + player1 + " é: " + std::to_string(pontuacao1) + "\n";
+                std::cout << "╼A pontuação do " + player2 + " é: " + std::to_string(pontuacao1) + "\n";
                 std::cout << "O jogo acabou!\n";
                 std::cout << "A voltar ao Menu inicial......\n";
                 break;
