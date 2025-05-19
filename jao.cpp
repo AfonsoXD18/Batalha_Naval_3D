@@ -25,7 +25,6 @@ TODO:
 #include <fstream>
 #include <cstdlib>
 
-
 // Constantes + Variáveis globais
 const int SIZE = 10;
 const bool READ_FROM_FILE = false;
@@ -523,7 +522,7 @@ void jogar(){
     int x, y, z;
     while (true){
         if (player){
-            std::cout << player1 + "! és tu a jogar!\n";
+            std::cout << player1 + "! és tu a jogar! --> " + pontuacao1 + "\n";
             // perguntar a camada de z que quer ver
             std::cout << "╼Insira a Camada que pretende ver z (0 - 9): ";
             lerInputInt(z);
@@ -551,7 +550,7 @@ void jogar(){
             }
 
         }else{
-            std::cout << player2 + "! és tu a jogar!\n";
+            std::cout << player2 + "! és tu a jogar!" + pontuacao2 + "\n";
             // perguntar a camada de z que quer ver
             std::cout << "╼Insira a Camada que pretende ver z (0 - 9): ";
             lerInputInt(z);
