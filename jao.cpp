@@ -1,6 +1,17 @@
 // Este ficheiro é a versão do jão! please não mexam :))
 // Compilar com: chcp 65001; g++ -std=c++14 jao.cpp -o jao; ./jao
 
+/* 
+Índice:
+
+    - Tabuleiro:
+        - 0 ---> vazio
+        - 1 ---> nave
+        - 2 ---> nave abatida
+        - 3 ---> falhou
+        - outro ---> erro no tabuleiro
+*/
+
 
 /*
 TODO:
@@ -347,6 +358,10 @@ void jogar(){
                 std::cout << "╼Coordenadas inválidas! Tente novamente.\n";
                 continue;
             }
+
+            //check if hit or miss
+            shoot(tabuleiro2, x, y, z, pontuacao1);
+
         }else{
             std::cout << player2 + "! és tu a jogar!\n";
             gameUI(player2, tabuleiro2, tabuleiro1, 0);
@@ -358,11 +373,65 @@ void jogar(){
                 std::cout << "╼Coordenadas inválidas! Tente novamente.\n";
                 continue;
             }
+            
+            //check if hit or miss
+            shoot(tabuleiro2, x, y, z, pontuacao1);
         }
         player = !player; // muda o proximo jogador
     }
 }
 
+void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, int z, int& pontuacao){
+    bool acertou = false; // Flag para saber se houve pelo menos um acerto na linha
+    // Se x == 0, o ataque percorre o eixo X (i varia em X, y e z fixos)
+    if (x == 0){
+        for (int i = 0; i < 10; ++i){
+            // Se atingir uma nave, marca com 'X' e aumenta a pontuação
+            if (tabuleiro[i][y][z] == 1){
+                tabuleiro[i][y][z] = 2;
+                pontuacao++;
+                acertou = true;
+            }
+            // Se atingir uma célula vazia, marca como falhanço com 'O'
+            else if (tabuleiro[i][y][z] == 0){
+                tabuleiro[i][y][z] = 3;
+            }
+        }
+    }
+    // Se y == 0, o ataque percorre o eixo Y (i varia em Y, x e z fixos)
+    else if (y == 0){
+        for (int i = 0; i < 10; ++i){
+            if (tabuleiro[x][i][z] == 1){
+                tabuleiro[x][i][z] = 2;
+                pontuacao++;
+                acertou = true;
+            }
+            else if (tabuleiro[x][i][z] == 0){
+                tabuleiro[x][i][z] = 3;
+            }
+        }
+    }
+    // Se z == 0, o ataque percorre o eixo Z (i varia em Z, x e y fixos)
+    else if (z == 0){
+        for (int i = 0; i < 10; ++i){
+            if (tabuleiro[x][y][i] == 1){
+                tabuleiro[x][y][i] = 2;
+                pontuacao++;
+                acertou = true;
+            }
+            else if (tabuleiro[x][y][i] == 0){
+                tabuleiro[x][y][i] = 3;
+            }
+        }
+    }
+
+    // Mostra ao jogador se acertou ou não em alguma nave
+    if (acertou){
+        std::cout << "🎯 Acertaste numa nave!\n";
+    } else {
+        std::cout << "💦 Não acertaste em nada...\n";
+    }
+}
 
 /* FUNÇÕES AUXILIARES */
 std::string oQueImprimirLinha(int x, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador, int camada) {
