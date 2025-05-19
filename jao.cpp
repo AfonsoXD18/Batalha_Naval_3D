@@ -92,7 +92,6 @@ void prepJogo(){
 
     // Pedir input do Player1
     std::cout << "🚢🚢🚢 começar jogo!!!🚢🚢🚢\n\n╼Insira o nome do jogador 1: ";
-    std::string player1;
     lerInputString(player1);
 
     // Pedir input para colocar as naves do Player1
@@ -217,7 +216,6 @@ void prepJogo(){
 
     // Pedir input do Player2
     std::cout << "\n╼Insira o nome do jogador 2: ";
-    std::string player2;
     lerInputString(player2);
 
     // Perguntar se quer colocar naves de forma automatica ou manual
