@@ -166,7 +166,7 @@ void prepJogo(){
         lerInputInt(x);
         lerInputInt(y);
         lerInputInt(z);
-        std::cout << "\nInsira a orientacao \n0: +z\n 1: -z\n 2: +y\n 3: -y\n 4: +x\n 5: -x\nOrientacao: ";
+        std::cout << "\nInsira a orientacao \n ╼0: +z\n ╼1: -z\n ╼2: +y\n ╼3: -y\n ╼4: +x\n ╼5: -x\nOrientacao: ";
         lerInputInt(orientacao);
 
         colocarNave(x, y, z, nave, orientacao, tabuleiro1);
@@ -400,8 +400,16 @@ void jogar(){
                 continue;
             }
 
-            //check if hit or miss
+            // Verifica se acertou ou não
             shoot(tabuleiro2, x, y, z, pontuacao1);
+            if (pontuacao1 >= 10){
+                std::cout << "Parabéns " + player1 + "! Ganhou o jogo!\n";
+                std::cout << "╼A sua pontuação é: " + std::to_string(pontuacao1) + "\n";
+                std::cout << "╼A pontuação do " + player2 + " é: " + std::to_string(pontuacao2) + "\n";
+                std::cout << "O jogo acabou!\n";
+                std::cout << "A voltar ao Menu inicial......\n";
+                break;
+            }
 
         }else{
             std::cout << player2 + "! és tu a jogar!\n";
@@ -415,8 +423,15 @@ void jogar(){
                 continue;
             }
 
-            //check if hit or miss
+            //Verifica se acertou ou não
             shoot(tabuleiro1, x, y, z, pontuacao2);
+            if (pontuacao2 >= 10){
+                std::cout << "Parabéns " + player2 + "! Ganhou o jogo!\n";
+                std::cout << "╼A sua pontuação é: " + std::to_string(pontuacao2) + "\n";
+                std::cout << "╼A pontuação do " + player1 + " é: " + std::to_string(pontuacao1) + "\n";
+                std::cout << "O jogo acabou!\n";
+                std::cout << "A voltar ao Menu inicial......\n";
+                break;
         }
         player = !player; // muda o proximo jogador
     }
