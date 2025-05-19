@@ -522,8 +522,7 @@ void jogar(){
     int x, y, z;
     while (true){
         if (player){
-            std::cout << player1 + "! és tu a jogar! --> " + pontuacao1 + "\n";
-            // perguntar a camada de z que quer ver
+            std::cout << player1 + "! és tu a jogar! --> " + std::to_string(pontuacao1) + "\n";
             std::cout << "╼Insira a Camada que pretende ver z (0 - 9): ";
             lerInputInt(z);
             gameUI(player1, tabuleiro1, tabuleiro2, z);
@@ -550,7 +549,7 @@ void jogar(){
             }
 
         }else{
-            std::cout << player2 + "! és tu a jogar!" + pontuacao2 + "\n";
+            std::cout << player2 + "! és tu a jogar!" + std::to_string(pontuacao2) + "\n";
             // perguntar a camada de z que quer ver
             std::cout << "╼Insira a Camada que pretende ver z (0 - 9): ";
             lerInputInt(z);
