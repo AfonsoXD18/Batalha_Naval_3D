@@ -236,11 +236,8 @@ void prepJogo(){
         randomizeNaves(tabuleiro2);
         gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
     }else{
-
-        // Colocar naves automaticamente
-        std::cout << "Colocando naves automaticamente...\n";
-        randomizeNaves(tabuleiro2);
-        gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
+        // vars para guardar input
+        int x, y, z, nave, orientacao, camada;
 
         // Pedir input para colocar as naves do Player2
         gameUI(jogador2, tabuleiro2, tabuleiro1, 0);
