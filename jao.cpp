@@ -490,6 +490,7 @@ void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro) {
         }
     }
 
+    j = 0;
     while (j < 1){
         int x = rand() % SIZE;
         int y = rand() % SIZE;
@@ -500,6 +501,7 @@ void randomizeNaves(std::vector<std::vector<std::vector<int>>>& tabuleiro) {
         }
     }
 
+    j = 0;
     while (j < 1){
         int x = rand() % SIZE;
         int y = rand() % SIZE;
