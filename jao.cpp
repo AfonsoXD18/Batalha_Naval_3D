@@ -445,7 +445,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
         for (int i = 0; i < 10; ++i){
             // Se atingir uma nave, marca com 'X' e aumenta a pontuação
             if (tabuleiro[i][y][z] == 1){
-                tocarSom("som2");
+                tocarSom("BOOOM");
                 tabuleiro[i][y][z] = 2;
                 pontuacao++;
                 acertou = true;
@@ -460,7 +460,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
     else if (y == 0){
         for (int i = 0; i < 10; ++i){
             if (tabuleiro[x][i][z] == 1){
-                tocarSom("som2");
+                tocarSom("BOOOM");
                 tabuleiro[x][i][z] = 2;
                 pontuacao++;
                 acertou = true;
@@ -474,7 +474,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
     else if (z == 0){
         for (int i = 0; i < 10; ++i){
             if (tabuleiro[x][y][i] == 1){
-                tocarSom("som2");
+                tocarSom("BOOOM");
                 tabuleiro[x][y][i] = 2;
                 pontuacao++;
                 acertou = true;
