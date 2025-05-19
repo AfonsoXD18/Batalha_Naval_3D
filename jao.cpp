@@ -3,7 +3,6 @@
 
 /* 
 Índice:
-
     - Tabuleiro:
         - 0 ---> vazio
         - 1 ---> nave
@@ -34,8 +33,8 @@ const bool READ_FROM_FILE = false;
 std::vector<std::vector<std::vector<int>>> tabuleiro1 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 1
 std::vector<std::vector<std::vector<int>>> tabuleiro2 (SIZE, std::vector<std::vector<int>>(SIZE, std::vector<int>(SIZE, 0))); // --> Tabuleiro Player 2
 std::ifstream inputFile("entrada.txt");
-std::string player1 = "Jogador 1";
-std::string player2 = "Jogador 2";
+std::string player1;
+std::string player2;
 
 //Declarar funções
 int menu();
@@ -332,7 +331,7 @@ void prepJogo(){
 
 }
 
-void gameUI(std::string jogador = "Jogador", std::vector<std::vector<std::vector<int>>> tabuleiroA, std::vector<std::vector<std::vector<int>>> tabuleiroB, int camadaZ) {
+void gameUI(std::string jogador, std::vector<std::vector<std::vector<int>>> tabuleiroA, std::vector<std::vector<std::vector<int>>> tabuleiroB, int camadaZ) {
     std::string titulo = "╔════════════════════════════════════════════╣ " + jogador + " ╠════════════════════════════════════════════╗\n";
     std::string empty = "║                                                         " + std::string(jogador.size(), ' ') + "                                   ║\n";
     std::string cabecalho = "║    Meu Tabuleiro:                              " + std::string(jogador.size(), ' ') + " Tabuleiro Inimigo:                         ║\n";
