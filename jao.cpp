@@ -42,6 +42,7 @@ int menu();
 void prepJogo();
 void gameUI(std::string jogador1, std::vector<std::vector<std::vector<int>>> tabuleiroA = tabuleiro1, std::vector<std::vector<std::vector<int>>> tabuleiroB = tabuleiro2, int camadaZ = 0);
 void colocarNave(int x, int y, int z, int tamanho, int orientacao, std::vector<std::vector<std::vector<int>>>& tabuleiro);
+void colocarNaveMae(int x, int y, int z, std::vector<std::vector<std::vector<int>>>& tabuleiro);
 void jogar();
 void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, int z, int& pontuacao);
 std::string oQueImprimirLinha(int x, std::vector<std::vector<std::vector<int>>> tabuleiroBom, std::vector<std::vector<std::vector<int>>> tabuleiroMau, std::string jogador, int camada);
