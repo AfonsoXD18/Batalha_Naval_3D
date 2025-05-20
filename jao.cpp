@@ -12,12 +12,6 @@
 */
 
 
-/*
-TODO:
- - Manegeamento de pontos --> posso colocar no cabeçalho à frente de cada tabuleiro o total de pontos 
-*/
-
-
 #include <sstream>
 #include <iomanip>
 #include <iostream>
@@ -35,6 +29,10 @@ std::ifstream inputFile("entrada.txt");
 std::string player1;
 std::string player2;
 
+//Settings
+bool somLigado = true;
+std::string somExplosao = "BOOOM"; // Som padrão
+
 //Declarar funções
 int menu();
 void prepJogo();
@@ -49,6 +47,8 @@ std::string repetirString(const std::string& s, int n);
 void lerInputString(std::string& s);
 void lerInputInt(int& x);
 void tocarSom(const std::string& som);
+void configuracoes();
+void subMenuExplosao();
 
 
 /* FUNÇÕES PRÉ-JOGO */
@@ -76,7 +76,7 @@ int menu(){  // Menu com caracteres UTF-8 de box
             jogar();
         } else if (opcao == "2"){
             std::cout << "\n\n\n";
-            //configuracoes();
+            configuracoes();
         } else if (opcao == "3"){
             std::cout << "\n\n\n";
             //mostrarHistorico();
@@ -522,7 +522,7 @@ void jogar(){
     int x, y, z;
     while (true){
         if (player){
-            std::cout << player1 + "! és tu a jogar! --> " + std::to_string(pontuacao1) + "\n";
+            std::cout << player1 + "! és tu a jogar! --> Pontos: " + std::to_string(pontuacao1) + "\n";
             std::cout << "╼Insira a Camada que pretende ver z (0 - 9): ";
             lerInputInt(z);
             gameUI(player1, tabuleiro1, tabuleiro2, z);
@@ -549,7 +549,7 @@ void jogar(){
             }
 
         }else{
-            std::cout << player2 + "! és tu a jogar!" + std::to_string(pontuacao2) + "\n";
+            std::cout << player2 + "! és tu a jogar! --> Pontos: " + std::to_string(pontuacao2) + "\n";
             // perguntar a camada de z que quer ver
             std::cout << "╼Insira a Camada que pretende ver z (0 - 9): ";
             lerInputInt(z);
@@ -585,7 +585,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
         for (int i = 0; i < 10; ++i){
             // Se atingir uma nave, marca com 'X' e aumenta a pontuação
             if (tabuleiro[i][y][z] == 1){
-                tocarSom("BOOOM");
+                tocarSom(somExplosao);
                 tabuleiro[i][y][z] = 2;
                 pontuacao++;
                 acertou = true;
@@ -600,7 +600,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
     else if (y == 0){
         for (int i = 0; i < 10; ++i){
             if (tabuleiro[x][i][z] == 1){
-                tocarSom("BOOOM");
+                tocarSom(somExplosao);
                 tabuleiro[x][i][z] = 2;
                 pontuacao++;
                 acertou = true;
@@ -614,7 +614,7 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
     else if (z == 0){
         for (int i = 0; i < 10; ++i){
             if (tabuleiro[x][y][i] == 1){
-                tocarSom("BOOOM");
+                tocarSom(somExplosao);
                 tabuleiro[x][y][i] = 2;
                 pontuacao++;
                 acertou = true;
@@ -633,6 +633,60 @@ void shoot(std::vector<std::vector<std::vector<int>>>& tabuleiro, int x, int y, 
     }
 }
 
+
+/* FUNÇÕES DE CONFIGURAÇÔES */
+void configuracoes(){
+    while (true){
+        std::cout << "╒═══════════════════════════════════════════════╕\n";
+        std::cout << "│ 1. Ligar/Desligar Som                         │\n";
+        std::cout << "│ 2. Mudar o som da explosão                    │\n";
+        std::cout << "│ 3. Sair                                       │\n";
+        std::cout << "╘═══════════════════════════════════════════════╛\n";
+        std::cout << "╼Escolha uma opção: ";
+        int opcao;
+        lerInputInt(opcao);
+        if (opcao == 1){
+            somLigado = !somLigado;
+            if (somLigado){
+                std::cout << "\n\n\n\n\n\n\nSom ligado!";
+            }else{
+                std::cout << "\n\n\n\n\n\n\nSom desligado!";
+            }
+        }else if (opcao == 2){
+            subMenuExplosao();
+        }else if (opcao == 3){
+            break;
+        }else{
+            std::cout << "\n\n\n\n\n\n\nOpção inválida! Tente novamente.\n";
+        }
+    }
+}
+
+void subMenuExplosao(){
+    while (true){
+        std::cout << "╒═══════════════════════════════════════════════╕\n";
+        std::cout << "│ 1. Som de explosão padrão                     │\n";
+        std::cout << "│ 2. Som de explosão alternativo                │\n";
+        std::cout << "│ 3. Sair                                       │\n";
+        std::cout << "╘═══════════════════════════════════════════════╛\n";
+        std::cout << "╼Escolha uma opção: ";
+        int opcao;
+        lerInputInt(opcao);
+        if (opcao == 1){
+            somExplosao = "BOOOM";
+            std::cout << "\n\n\n\n\n\n\nSom de explosão alterado para padrão.\n";
+            break;
+        }else if (opcao == 2){
+            somExplosao = "BOOOM2";
+            std::cout << "\n\n\n\n\n\n\nSom de explosão alterado para alternativo.\n";
+            break;
+        }else if (opcao == 3){
+            break;
+        }else{
+            std::cout << "\n\n\n\n\n\n\nOpção inválida! Tente novamente.\n";
+        }
+    }
+}
 
 
 /* FUNÇÕES AUXILIARES */
