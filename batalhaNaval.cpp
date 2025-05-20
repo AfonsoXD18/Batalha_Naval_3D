@@ -1,5 +1,4 @@
-// Este ficheiro é a versão do jão! please não mexam :))
-// Compilar com: chcp 65001; g++ -std=c++14 jao.cpp -o jao; ./jao
+// Compilar com: chcp 65001; g++ -std=c++14 batalhaNaval.cpp -o batalhaNaval; ./batalhaNaval
 
 /* 
 Índice:

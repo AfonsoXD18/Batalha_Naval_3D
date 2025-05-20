@@ -1,8 +1,8 @@
 @echo off
 chcp 65001 > nul
-echo Compilando jao.cpp com g++...
+echo Compilando batalhaNaval.cpp com g++...
 
-g++ -std=c++14 jao.cpp -o jao.exe
+g++ -std=c++14 batalhaNaval.cpp -o batalhaNaval.exe
 if %errorlevel% neq 0 (
     echo Houve um erro na compilação.
     pause
@@ -11,7 +11,7 @@ if %errorlevel% neq 0 (
 
 echo Compilação bem-sucedida. A executar...
 echo.
-jao.exe
+batalhaNaval.exe
 
 echo.
 pause
