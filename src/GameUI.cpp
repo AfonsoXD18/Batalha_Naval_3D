@@ -8,7 +8,7 @@
 GameUI::GameUI(){
 }
 
-void GameUI::setup(std::string jogador, Tabuleiro tabuleiroA, Tabuleiro tabuleiroB, int camadaZ){
+void GameUI::setup(std::string jogador, Tabuleiro* tabuleiroA, Tabuleiro* tabuleiroB, int camadaZ) {
     this->tabuleiroA = tabuleiroA;
     this->tabuleiroB = tabuleiroB;
     this->jogador = jogador;
@@ -31,7 +31,7 @@ void GameUI::printGameUI() {
     std::cout << empty;
     std::cout << valores;
     std::cout << tabuleiroIni;
-    std::cout << "║ X " << oQueImprimirLinha(0, tabuleiroA, tabuleiroB, jogador, camadaZ) << " X ║\n"; 
+    std::cout << "║ X " << oQueImprimirLinha(0, tabuleiroA, tabuleiroB, jogador, camadaZ) << " X ║\n";
     std::cout << tabuleiroStr;
     std::cout << "║ 1 " << oQueImprimirLinha(1, tabuleiroA, tabuleiroB, jogador, camadaZ) << " 1 ║\n"; 
     std::cout << tabuleiroStr;
@@ -56,68 +56,42 @@ void GameUI::printGameUI() {
 }
 
 /* FUNÇÕES AUXILIARES */
-std::string GameUI::oQueImprimirLinha(int x, Tabuleiro tabuleiroBom, Tabuleiro tabuleiroMau, std::string jogador, int camada) {
-    std::ostringstream oss;
-    std::vector<std::vector<std::vector<int>>>& tabBOM = tabuleiroBom.getTabuleiro();
-    std::vector<std::vector<std::vector<int>>>& tabMAU = tabuleiroMau.getTabuleiro();
 
-    // tabuleiro do player em questão
+std::string GameUI::oQueImprimirLinha(int x, Tabuleiro* tabuleiroBom, Tabuleiro* tabuleiroMau, std::string jogador, int camada) {
+    std::ostringstream oss;
+    std::vector<std::vector<std::vector<int>>>& tabBOM = tabuleiroBom->getTabuleiro();
+    std::vector<std::vector<std::vector<int>>>& tabMAU = tabuleiroMau->getTabuleiro();
+
+    // Tabuleiro do player em questão
     for (int i = 0; i < SIZE; i++) {
         int valor = tabBOM[x][i][camada];
-
         std::string placement = "";
         switch (valor){
-            case 0: // vazio
-                placement = " ";
-                break;
-            case 1: // tem nave
-                placement = "🚀";
-                break;
-            case 2: // morreu
-                placement = "💥";
-                break;
-            case 3: // falhou
-                placement = "❌";
-                break;
-            default:
-                return "⚠️";
-                break;
+            case 0: placement = " "; break;
+            case 1: placement = "🚀"; break;
+            case 2: placement = "💥"; break;
+            case 3: placement = "❌"; break;
+            default: return "⚠️";
         }
-
-        // Formata cada valor com largura 3 para alinhar (como " 5 ", "10 ", etc.)
         oss << "┃" << std::setw(2) << std::setfill(' ') << placement << " ";
     }
-    oss << "┃";  // Fecha a última barra
+    oss << "┃";
     oss << "    " + std::string(jogador.size(), ' ');
-    
-    //Tabuleiro do inimigo
+
+    // Tabuleiro do inimigo
     for (int i = 0; i < SIZE; i++) {
         int valor = tabMAU[x][i][camada];
-        
         std::string placement = "";
         switch (valor){
-            case 0: // vazio
-                placement = " ";
-                break;
-            case 1: // tem nave mas como é inimigo não podemos ver
-                placement = " ";
-                break;
-            case 2: // morreu
-                placement = "💥";
-                break;
-            case 3: // falhou
-                placement = "❌";
-                break;
-            default:
-                return "⚠️";
-                break;
+            case 0: placement = " "; break;
+            case 1: placement = " "; break; // Não mostra naves inimigas
+            case 2: placement = "💥"; break;
+            case 3: placement = "❌"; break;
+            default: return "⚠️";
         }
-
-        // Formata cada valor com largura 3 para alinhar (como " 5 ", "10 ", etc.)
         oss << "┃" << std::setw(2) << std::setfill(' ') << placement << " ";
     }
-    oss << "┃";  // Fecha a última barra
-
+    oss << "┃";
     return oss.str();
 }
 

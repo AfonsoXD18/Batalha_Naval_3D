@@ -1,6 +1,15 @@
-#pragma once
+#ifndef JUKEBOX_H
+#define JUKEBOX_H
+
 #include <string>
 #include <iostream>
 #include "Constantes.h"
 
-void tocarSom(const std::string& som);
+class Jukebox {
+
+    public:
+        Jukebox();
+        void tocarSom(std::string& som);
+};
+
+#endif

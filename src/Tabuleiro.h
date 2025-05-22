@@ -18,6 +18,8 @@ public:
     void disparar(int x, int y, int z, int& pontuacao);
 
     std::vector<std::vector<std::vector<int>>>& getTabuleiro();
+
+    void tocarSom(const std::string& som);
 };
 
 #endif
